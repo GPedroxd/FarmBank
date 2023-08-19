@@ -1,3 +1,6 @@
+using FarmBank.Integration.Interfaces;
+using Refit;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +9,12 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddRefitClient<IMercadoPagoApi>(new() {
+    AuthorizationHeaderValueGetter = (msg, ct) => Task.FromResult(builder.Configuration["MercadoPagoApiToken"]!),
+}).ConfigureHttpClient(c => {
+    c.BaseAddress = new Uri("https://api.mercadopago.com");
+});
 
 var app = builder.Build();
 

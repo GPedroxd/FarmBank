@@ -13,7 +13,7 @@ public struct NewPixRequestModel
     [JsonPropertyName("payer")]
     public Payer Payer { get; set; }
     [JsonPropertyName("date_of_expiration")]
-    public DateTime ExpirationDate { get; set;}
+    public string ExpirationDate { get; set;}
 }
 public struct Payer 
 {
