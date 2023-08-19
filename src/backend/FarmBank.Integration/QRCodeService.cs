@@ -3,8 +3,6 @@ using FarmBank.Application.Interfaces;
 using FarmBank.Application.Models;
 using FarmBank.Integration.Interfaces;
 using FarmBank.Integration.RequestModel;
-using FarmBank.Integration.ResponseModel;
-using Refit;
 
 namespace FarmBank.Integration;
 

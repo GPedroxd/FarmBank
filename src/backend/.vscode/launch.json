@@ -9,9 +9,9 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/farmbank-api/bin/Debug/net7.0/farmbank-api.dll",
+            "program": "${workspaceFolder}/FarmBank.Api/bin/Debug/net7.0/FarmBank.Api.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/farmbank-api",
+            "cwd": "${workspaceFolder}/FarmBank.Api",
             "stopAtEntry": false,
             "serverReadyAction": {
                 "action": "openExternally",
