@@ -1,5 +1,3 @@
-using farmbank_api.Repositoies;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -8,8 +6,6 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddMediatR(c => c.RegisterServicesFromAssemblyContaining<Program>());
-builder.Services.AddTransient<TransactionRepository>();
 
 var app = builder.Build();
 
