@@ -5,5 +5,5 @@ namespace FarmBank.Application.Interfaces;
 
 public interface IQRCodeService
 {
-    Task<Transaction> GenerationQRCodeAsync(NewPixCommand newPixCommand);
+    Task<Transaction> GenerateQRCodeAsync(NewPixCommand newPixCommand);
 }

@@ -3,13 +3,13 @@ using MediatR;
 
 namespace FarmBank.Application.Base;
 
-public interface ICommandHandler<in TCommand> : IRequestHandler<TCommand, ResponseResult>
+public interface ICommandHandler<in TCommand> : IRequestHandler<TCommand>
     where TCommand : ICommand 
 {
 
 }
 
-public interface ICommandHandler<in TCommand, TResult> : IRequestHandler<TCommand, ResponseResult<TResult>>
+public interface ICommandHandler<in TCommand, TResult> : IRequestHandler<TCommand, TResult>
     where TCommand : ICommand<TResult>
 {
 

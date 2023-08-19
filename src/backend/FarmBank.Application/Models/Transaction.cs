@@ -8,7 +8,7 @@ public class Transaction : BaseEntity
     public string UserEmail { get; set; }
     public string UserName { get;set; }
     public string TransactionId { get; set; }
-    public double Value { get; set; }
+    public double Ammount { get; set; }
     public TransactinoStatus Status { get; set; }
     public string PixCopyPaste { get; set; }
     public string QRCode { get; set; }

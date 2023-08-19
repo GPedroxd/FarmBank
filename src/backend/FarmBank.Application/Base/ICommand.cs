@@ -3,12 +3,12 @@ using MediatR;
 
 namespace FarmBank.Application.Base;
 
-public interface ICommand : IRequest<ResponseResult>
+public interface ICommand : IRequest
 {
     
 }
 
-public interface ICommand<TResult> : IRequest<ResponseResult<TResult>>
+public interface ICommand<TResult> : IRequest<TResult>
 {
     
 }

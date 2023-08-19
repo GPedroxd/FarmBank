@@ -6,7 +6,7 @@ namespace FarmBank.Integration;
 
 public class QRCodeService : IQRCodeService
 {
-    public Task<Transaction> GenerationQRCodeAsync(NewPixCommand newPixCommand)
+    public Task<Transaction> GenerateQRCodeAsync(NewPixCommand newPixCommand)
     {
         throw new NotImplementedException();
     }
