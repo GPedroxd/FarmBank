@@ -29,8 +29,8 @@ public class QRCodeService : IQRCodeService
 
         return new Transaction(
             newPixCommand.PhoneNumber, 
-            newPixCommand.Email, 
-            "", 
+            newPixCommand.Email,
+            newPixCommand.UserName, 
             response.TransactionId.ToString(),
             newPixCommand.Amount,
             response.PointOfInteraction.TransactionData.QRCodeCopyPaste,

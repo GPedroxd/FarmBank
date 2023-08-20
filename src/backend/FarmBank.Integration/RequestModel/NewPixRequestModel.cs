@@ -9,13 +9,19 @@ public struct NewPixRequestModel
     [JsonPropertyName("description")]
     public string Description { get; set; }
     [JsonPropertyName("payment_method_id")]
-    public string PaymentMethodId { get =>"pix"; }
+    public string PaymentMethodId { get => "pix"; }
     [JsonPropertyName("payer")]
     public Payer Payer { get; set; }
     [JsonPropertyName("date_of_expiration")]
-    public string ExpirationDate { get; set;}
+    public string ExpirationDate
+    {
+        get { 
+            return DateTime.Now.AddHours(1).ToString("yyyy-MM-dd'T'HH:mm:ssz");
+        }
+
+    }
 }
-public struct Payer 
+public struct Payer
 {
     [JsonPropertyName("email")]
     public string Email { get; set; }

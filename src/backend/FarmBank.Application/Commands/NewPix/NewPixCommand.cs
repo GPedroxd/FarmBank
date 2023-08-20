@@ -16,5 +16,6 @@ public class NewPixCommand : ICommand<ResponseResult<QRCode>>
 
     public string PhoneNumber { get; init; }
     public string Email {get; init; }
+    public string UserName { get; set; }
     public double Amount { get; init; }
 }
