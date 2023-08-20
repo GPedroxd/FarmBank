@@ -1,4 +1,5 @@
 using FarmBank.Application.Commands.NewPix;
+using FarmBank.Application.Commands.UpdateTransaction;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -25,5 +26,13 @@ namespace FarmBank.Api.Controllers
             
             return BadRequest(result);
         }
+
+        [HttpPost("callback")]
+        public async Task<IActionResult> CallBackAsync(UpdateTransactionCommand command)
+        {
+            await _mediator.Send(command);
+            return Ok();
+        }
+
     }
 }

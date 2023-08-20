@@ -27,6 +27,13 @@ public class QRCodeService : IQRCodeService
 
         var response = await _mercadoPagoApi.CreatePaymentAsync(payment);
 
-        return null;
+        return new Transaction(
+            newPixCommand.PhoneNumber, 
+            newPixCommand.Email, 
+            "", 
+            response.TransactionId.ToString(),
+            newPixCommand.Amount,
+            response.PointOfInteraction.TransactionData.QRCodeCopyPaste,
+            response.PointOfInteraction.TransactionData.QRCodeBase64, response.ExpirationDate);
     }
 }
