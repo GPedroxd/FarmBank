@@ -1,5 +1,4 @@
 using FarmBank.Application.Commands.NewPix;
-using FarmBank.Application.Dto;
 using FarmBank.Application.Interfaces;
 using FarmBank.Integration;
 using FarmBank.Integration.Interfaces;
@@ -17,6 +16,11 @@ builder.Services.AddRefitClient<IMercadoPagoApi>(new() {
     AuthorizationHeaderValueGetter = (msg, ct) => Task.FromResult(builder.Configuration["MercadoPagoApiToken"]!),
 }).ConfigureHttpClient(c => {
     c.BaseAddress = new Uri("https://api.mercadopago.com");
+});
+
+builder.Services.AddRefitClient<IWppApi>()
+.ConfigureHttpClient(c => {
+    c.BaseAddress = new Uri(builder.Configuration["WppApiUrl"] ?? "localhost:3333");
 });
 
 var app = builder.Build();
