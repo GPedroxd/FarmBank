@@ -16,7 +16,8 @@ public class NewPixCommandHandler : ICommandHandler<NewPixCommand, ResponseResul
 
     public async Task<ResponseResult<QRCode>> Handle(NewPixCommand request, CancellationToken cancellationToken)
     {
-        var transaction = await _qrCodeService.GenerateQRCodeAsync(request);
+        // var transaction = await _qrCodeService.GenerateQRCodeAsync(request);
+        var transaction = new Models.Transaction("","","","",0,"","", DateTime.Now);
        
         await _transactionRepository.InsertAsync(transaction, cancellationToken);
 
