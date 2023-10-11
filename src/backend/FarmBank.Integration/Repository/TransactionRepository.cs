@@ -18,10 +18,10 @@ public class TransactionRepository : ITransactionRepository
         return await _context.Transaction.FirstOrDefaultAsync(f => f.TransactionId == transactionId);
     }
 
-    public async Task<double> GetTotalAmountAsync(CancellationToken cancellationToken)
+    public async Task<decimal> GetTotalAmountAsync(CancellationToken cancellationToken)
     {
         var trans = await _context.Transaction.FilterByAsync(f => f.Status == TransactinoStatus.PaidOut);
-        return trans.Sum(s => s.Ammount);
+        return trans.Sum(s => s.Amount);
     }
 
     public async Task InsertAsync(Transaction transaction, CancellationToken cancellationToken)

@@ -5,7 +5,7 @@ namespace FarmBank.Integration.RequestModel;
 public struct NewPixRequestModel
 {
     [JsonPropertyName("transaction_amount")]
-    public double TransactionAmount { get; set; }
+    public decimal TransactionAmount { get; set; }
     [JsonPropertyName("description")]
     public string Description { get; set; }
     [JsonPropertyName("payment_method_id")]

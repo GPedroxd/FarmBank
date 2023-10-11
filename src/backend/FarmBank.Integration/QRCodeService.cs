@@ -32,8 +32,11 @@ public class QRCodeService : IQRCodeService
             newPixCommand.Email,
             newPixCommand.UserName, 
             response.TransactionId.ToString(),
-            newPixCommand.Amount,
+            GetAmmountWithDiscount(newPixCommand.Amount),
             response.PointOfInteraction.TransactionData.QRCodeCopyPaste,
             response.PointOfInteraction.TransactionData.QRCodeBase64, response.ExpirationDate);
     }
+
+    private decimal GetAmmountWithDiscount(decimal ammount)
+        => ammount * 0.99m;
 }

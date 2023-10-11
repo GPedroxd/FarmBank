@@ -11,12 +11,12 @@ public struct QRCode
         PixCopyPaste = transaction.PixCopyPaste;
         PixBase64 = transaction.QRCode;
         ExpirationDate = transaction.ExpirationDate;
-        Ammount = transaction.Ammount;
+        Amount = transaction.Amount;
     }
     public string PixCopyPaste { get; init; }
     public string PixBase64 { get; init; }
     public DateTime ExpirationDate { get; init; }
-    public double Ammount { get; init; }
+    public decimal Amount { get; init; }
 
     public static implicit operator QRCode(Transaction transaction)
         => new QRCode(transaction);

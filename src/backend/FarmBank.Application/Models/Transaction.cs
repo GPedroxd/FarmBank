@@ -14,7 +14,7 @@ public class Transaction : IBaseEntity
         string userEmail, 
         string userName, 
         string transactionId, 
-        double ammount, 
+        decimal amount, 
         string pixCopyPaste, 
         string qRCode,
         DateTime expirationDate)
@@ -23,7 +23,7 @@ public class Transaction : IBaseEntity
         UserEmail = userEmail;
         UserName = userName;
         TransactionId = transactionId;
-        Ammount = ammount;
+        Amount = amount;
         Status = TransactinoStatus.Pending;
         PixCopyPaste = pixCopyPaste;
         QRCode = qRCode;
@@ -39,7 +39,7 @@ public class Transaction : IBaseEntity
         string userEmail, 
         string userName, 
         string transactionId, 
-        double ammount, 
+        decimal amount, 
         TransactinoStatus status, 
         string pixCopyPaste, 
         string qRCode, 
@@ -50,7 +50,7 @@ public class Transaction : IBaseEntity
           userEmail, 
           userName, 
           transactionId, 
-          ammount, 
+          amount, 
           pixCopyPaste, 
           qRCode, 
           expirationDate)
@@ -70,7 +70,7 @@ public class Transaction : IBaseEntity
     public string UserEmail { get; init; }
     public string UserName { get; init; }
     public string TransactionId { get; init; }
-    public double Ammount { get; init; }
+    public decimal Amount { get; init; }
     public TransactinoStatus Status { get; private set; }
     public string PixCopyPaste { get; init; }
     public string QRCode { get; init; }

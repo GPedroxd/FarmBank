@@ -7,7 +7,7 @@ namespace FarmBank.Application.Commands.NewPix;
 public class NewPixCommand : ICommand<ResponseResult<QRCode>>
 {
     [JsonConstructor]
-    public NewPixCommand(string phoneNumber, string email, double amount)
+    public NewPixCommand(string phoneNumber, string email, decimal amount)
     {
         PhoneNumber = phoneNumber;
         Email = email;
@@ -17,5 +17,5 @@ public class NewPixCommand : ICommand<ResponseResult<QRCode>>
     public string PhoneNumber { get; init; }
     public string Email {get; init; }
     public string UserName { get; set; }
-    public double Amount { get; init; }
+    public decimal Amount { get; init; }
 }

@@ -17,7 +17,7 @@ public class WppService : IWppService
     {
         var requestModel = new SendMessageRequestModel()
         {
-            Id = "123",
+            Id = "120363188612570035@g.us",
             Message = message
         };
 

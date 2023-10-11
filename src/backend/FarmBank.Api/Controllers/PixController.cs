@@ -33,6 +33,5 @@ namespace FarmBank.Api.Controllers
             await _mediator.Send(command);
             return Ok();
         }
-
     }
 }
