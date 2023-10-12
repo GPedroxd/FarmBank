@@ -12,7 +12,6 @@ public class Transaction : IBaseEntity
     public Transaction(
         string userPhoneNumber, 
         string userEmail, 
-        string userName, 
         string transactionId, 
         decimal amount, 
         string pixCopyPaste, 
@@ -21,7 +20,6 @@ public class Transaction : IBaseEntity
     {
         UserPhoneNumber = userPhoneNumber;
         UserEmail = userEmail;
-        UserName = userName;
         TransactionId = transactionId;
         Amount = amount;
         Status = TransactinoStatus.Pending;
@@ -37,7 +35,6 @@ public class Transaction : IBaseEntity
         DateTime? updatedAt,
         string userPhoneNumber, 
         string userEmail, 
-        string userName, 
         string transactionId, 
         decimal amount, 
         TransactinoStatus status, 
@@ -48,7 +45,6 @@ public class Transaction : IBaseEntity
         string payerId) :
          this(userPhoneNumber,
           userEmail, 
-          userName, 
           transactionId, 
           amount, 
           pixCopyPaste, 
@@ -68,7 +64,6 @@ public class Transaction : IBaseEntity
     public DateTime? UpdatedAt { get; set; }
     public string UserPhoneNumber { get; init; }
     public string UserEmail { get; init; }
-    public string UserName { get; init; }
     public string TransactionId { get; init; }
     public decimal Amount { get; init; }
     public TransactinoStatus Status { get; private set; }

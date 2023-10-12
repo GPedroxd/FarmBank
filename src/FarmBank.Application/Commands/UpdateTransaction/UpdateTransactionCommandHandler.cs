@@ -1,4 +1,5 @@
 using FarmBank.Application.Base;
+using FarmBank.Application.Commands.NewMemberDeposit;
 using FarmBank.Application.Commands.SendWppMessage;
 using FarmBank.Application.Interfaces;
 using MediatR;
@@ -23,8 +24,8 @@ public class UpdateTransactionCommandHandler : ICommandHandler<UpdateTransaction
 
         await _transactionRepository.UpdateAsync(transaction, cancellationToken);
 
-        var sendWppMessage = new SendWppMessageCommand(transaction.UserEmail, transaction.UserName, transaction.Amount);
+        var newMemberDeposit = new NewMemberDepositCommand(transaction.TransactionId, transaction.UserPhoneNumber, transaction.Amount);
 
-        await _mediator.Send(sendWppMessage, cancellationToken);
+        await _mediator.Send(newMemberDeposit, cancellationToken);
     }
 }

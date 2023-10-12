@@ -7,25 +7,22 @@ namespace FarmBank.Application.Commands.SendWppMessage;
 public class SendWppMessageCommandHandler : ICommandHandler<SendWppMessageCommand>
 {
     private readonly IWppService _wppService;
-    private readonly ITransactionRepository _transactionRepository;
-    public SendWppMessageCommandHandler(IWppService wppService, ITransactionRepository transactionRepository)
+    public SendWppMessageCommandHandler(IWppService wppService)
     {
         _wppService = wppService;
-        _transactionRepository = transactionRepository;
     }
     
     public async Task Handle(SendWppMessageCommand request, CancellationToken cancellationToken)
     {
-        var totalAmmount = await _transactionRepository.GetTotalAmountAsync(cancellationToken);
-
-        var message = FormatMessage(request, totalAmmount);
+        var message = FormatMessage(request);
 
         await _wppService.SendMessagemAsync(message);
     }
 
-    private string FormatMessage(SendWppMessageCommand command, decimal total)
-     => Message.Deposit.Replace("@NAME", "o corno do gadelha").
-                            Replace("@AMMOUNT", command.Ammount.ToString()).
-                            Replace("@TOTALAMMOUNT", total.ToString()).
-                            Replace("@LINK", "https://localhost");
+    private string FormatMessage(SendWppMessageCommand command)
+     => Message.Deposit.Replace("@NAME", command.UserName).
+                            Replace("@AMMOUNT", command.AmountDeposit.ToString()).
+                            Replace("@MEMBERAMOUNTTOTAL", command.MemberTotalAmount.ToString()).
+                            Replace("@TOTALAMOUNT", command.TotalAmount.ToString()).
+                            Replace("@LINK", "https://farmbank-front.vercel.app/" ?? "https://localhost:5000");
 }

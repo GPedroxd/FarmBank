@@ -4,16 +4,17 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /app
-COPY ["backend/FarmBank.Api/FarmBank.Api.csproj", "Backend/FarmBank.Api/"]
-COPY ["backend/FarmBank.Application/FarmBank.Application.csproj", "Backend/FarmBank.Application/"]
-COPY ["backend/FarmBank.Integration/FarmBank.Integration.csproj", "Backend/FarmBank.Integration/"]
-RUN dotnet restore Backend/FarmBank.Api/FarmBank.Api.csproj
-WORKDIR /app/Backend/FarmBank.Api
+COPY ["FarmBank.Api/FarmBank.Api.csproj", "FarmBank.Api/"]
+COPY ["FarmBank.Application/FarmBank.Application.csproj", "FarmBank.Application/"]
+COPY ["FarmBank.Integration/FarmBank.Integration.csproj", "FarmBank.Integration/"]
+COPY *.sln . 
+RUN dotnet restore FarmBank.Api/FarmBank.Api.csproj
+WORKDIR /app/FarmBank.Api
 COPY . .
-RUN dotnet build -c Realease -o /app/build
+RUN dotnet build backend.sln -c release -o /app/build 
 
 FROM build As publish
-RUN dotnet publish -c release -o /app/publish --no-restore
+RUN dotnet publish backend.sln -c release -o /app/publish --no-restore
 
 FROM base As final
 WORKDIR /app

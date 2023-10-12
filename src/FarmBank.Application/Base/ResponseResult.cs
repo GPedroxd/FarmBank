@@ -20,7 +20,7 @@ public class ResponseResult
 {
     public ResponseResult(List<ValidationFailure> erros)
     {
-        IsValid =  erros.Any();
+        IsValid =  !erros.Any();
         _erros = erros;
     }
     public ResponseResult(ValidationFailure erro)

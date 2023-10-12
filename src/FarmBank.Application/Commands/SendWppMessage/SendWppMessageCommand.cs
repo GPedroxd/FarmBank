@@ -4,14 +4,16 @@ namespace FarmBank.Application.Commands.SendWppMessage;
 
 public class SendWppMessageCommand:  ICommand
 {
-    public SendWppMessageCommand(string email, string userPhoneNumber, decimal ammount)
+    public SendWppMessageCommand(string userName, decimal amountDeposit, decimal memberTotalAmount, decimal totalAmount)
     {
-        Email = email;
-        UserPhoneNumber = userPhoneNumber;
-        Ammount = ammount;
+        UserName = userName;
+        AmountDeposit = amountDeposit;
+        MemberTotalAmount = memberTotalAmount;
+        TotalAmount = totalAmount;
     }
 
-    public string Email { get; private set; }
-    public string UserPhoneNumber { get; private set; }
-    public decimal Ammount { get; private set; }
+    public string UserName { get; set; }
+    public decimal AmountDeposit { get; init; }
+    public decimal MemberTotalAmount { get; init; }
+    public decimal TotalAmount { get;  init ; }
 }

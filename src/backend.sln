@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FarmBank.Application", "Far
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarmBank.Integration", "FarmBank.Integration\FarmBank.Integration.csproj", "{98E29234-C5EC-406F-B09A-FA8AA1A583FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarmBank_Function", "FarmBank.Function\FarmBank_Function.csproj", "{E3D4F82D-97FC-47A9-B1DE-245074577A72}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,10 +27,6 @@ Global
 		{98E29234-C5EC-406F-B09A-FA8AA1A583FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{98E29234-C5EC-406F-B09A-FA8AA1A583FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{98E29234-C5EC-406F-B09A-FA8AA1A583FA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E3D4F82D-97FC-47A9-B1DE-245074577A72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E3D4F82D-97FC-47A9-B1DE-245074577A72}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E3D4F82D-97FC-47A9-B1DE-245074577A72}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E3D4F82D-97FC-47A9-B1DE-245074577A72}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

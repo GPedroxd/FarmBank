@@ -19,7 +19,7 @@ public class WppService : IWppService
         {
             Id = "120363188612570035@g.us",
             Message = message
-        };
+        };  
 
         var response = await _wppApi.SendMessageAsync(requestModel);
     }

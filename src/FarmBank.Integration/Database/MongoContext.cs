@@ -1,9 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using FarmBank.Application.Models;
 using FarmBank.Integration.Mongo;
-using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
-using MongoDB.Bson.Serialization.Serializers;
 
 namespace FarmBank.Integration.Database;
 
@@ -15,8 +13,18 @@ public class MongoContext : ContextBase
             BsonClassMap.RegisterClassMap<Transaction>(cm => {
                 cm.AutoMap();
                 cm.MapIdProperty(c => c.Id);
+                cm.SetIgnoreExtraElements(true);
             });
+
+        if(!BsonClassMap.IsClassMapRegistered(typeof(Member)))
+            BsonClassMap.RegisterClassMap<Member>(cm => {
+                cm.AutoMap();
+                cm.MapIdProperty(c => c.Id);
+                cm.SetIgnoreExtraElements(true);
+            });    
     }
 
     public DbSet<Transaction> Transaction { get => GetDbSet<Transaction>("transactions"); }
+
+    public DbSet<Member> Member { get => GetDbSet<Member>("members"); }
 }

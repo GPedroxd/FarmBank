@@ -16,11 +16,13 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 BsonSerializer.RegisterSerializer(new GuidSerializer(MongoDB.Bson.BsonType.String));
-builder.Services.AddScoped(_ => new MongoContext(builder.Configuration.GetConnectionString("MongoDbConnectionString"), "FarmBank"));
+builder.Services.AddScoped(_ => new MongoContext(builder.Configuration["MongoDbConnectionString"], "FarmBank"));
 builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
+builder.Services.AddScoped<IMemberRepository, MemberRepository>();
 builder.Services.AddMediatR(conf => conf.RegisterServicesFromAssemblyContaining<NewPixCommand>());
 builder.Services.AddScoped<IQRCodeService, QRCodeService>();
 builder.Services.AddScoped<IWppService, WppService>();
+
 builder.Services.AddRefitClient<IMercadoPagoApi>(new()
 {
     AuthorizationHeaderValueGetter = (msg, ct) => Task.FromResult(builder.Configuration["MercadoPagoApiToken"]!),
