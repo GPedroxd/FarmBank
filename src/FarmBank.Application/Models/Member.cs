@@ -19,8 +19,9 @@ public class Member : IBaseEntity
     public string PhoneNumber { get; private set; }
 
     private List<Deposit> _deposits { get; set; } = new ();
-    public IReadOnlyList<Deposit> Deposits => _deposits.AsReadOnly();
-
+    
+    public IReadOnlyList<Deposit> Deposits { get => _deposits.AsReadOnly(); private set => _ = value; }
+    
     public void AddDeposit(Deposit deposit)
     {
         if(_deposits.Any(a => a.TransactionId.Equals(deposit.TransactionId)))

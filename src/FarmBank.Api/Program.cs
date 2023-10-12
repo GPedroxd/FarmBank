@@ -1,4 +1,5 @@
 using FarmBank.Application.Commands.NewPix;
+using FarmBank.Application.Dto;
 using FarmBank.Application.Interfaces;
 using FarmBank.Integration;
 using FarmBank.Integration.Database;
@@ -22,6 +23,13 @@ builder.Services.AddScoped<IMemberRepository, MemberRepository>();
 builder.Services.AddMediatR(conf => conf.RegisterServicesFromAssemblyContaining<NewPixCommand>());
 builder.Services.AddScoped<IQRCodeService, QRCodeService>();
 builder.Services.AddScoped<IWppService, WppService>();
+
+var wppConfig = new GeneralConfigs(
+    builder.Configuration["WppGroupId"], 
+    builder.Configuration["WppBotInstanceKey"],
+    builder.Configuration["FrontEndUrl"]
+);
+builder.Services.AddSingleton(wppConfig);
 
 builder.Services.AddRefitClient<IMercadoPagoApi>(new()
 {

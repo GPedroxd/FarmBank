@@ -1,4 +1,5 @@
 using FarmBank.Application.Base;
+using FarmBank.Application.Dto;
 using FarmBank.Application.Interfaces;
 using FarmBank.Application.Models;
 
@@ -7,9 +8,11 @@ namespace FarmBank.Application.Commands.SendWppMessage;
 public class SendWppMessageCommandHandler : ICommandHandler<SendWppMessageCommand>
 {
     private readonly IWppService _wppService;
-    public SendWppMessageCommandHandler(IWppService wppService)
+    private readonly GeneralConfigs _configs;
+    public SendWppMessageCommandHandler(IWppService wppService, GeneralConfigs configs)
     {
         _wppService = wppService;
+        _configs = configs;
     }
     
     public async Task Handle(SendWppMessageCommand request, CancellationToken cancellationToken)
@@ -24,5 +27,5 @@ public class SendWppMessageCommandHandler : ICommandHandler<SendWppMessageComman
                             Replace("@AMMOUNT", command.AmountDeposit.ToString()).
                             Replace("@MEMBERAMOUNTTOTAL", command.MemberTotalAmount.ToString()).
                             Replace("@TOTALAMOUNT", command.TotalAmount.ToString()).
-                            Replace("@LINK", "https://farmbank-front.vercel.app/" ?? "https://localhost:5000");
+                            Replace("@LINK", _configs.FrontendUrl ?? "https://localhost:5000");
 }

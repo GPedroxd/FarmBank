@@ -20,6 +20,9 @@ public class UpdateTransactionCommandHandler : ICommandHandler<UpdateTransaction
     {
         var transaction = await _transactionRepository.GetByTransactionIdAsync(request.Data.Id, cancellationToken);
 
+        if(transaction is null)
+            return;
+
         transaction.SetAsPaidOut(request);
 
         await _transactionRepository.UpdateAsync(transaction, cancellationToken);

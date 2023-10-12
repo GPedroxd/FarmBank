@@ -1,6 +1,9 @@
+using FarmBank.Application.Base;
 using FarmBank.Application.Commands.NewMember;
+using FarmBank.Application.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace FarmBank.Api.Controllers;
 
@@ -15,13 +18,20 @@ public class MemberController : ControllerBase
         _mediator = mediator;
     }
 
+    /// <summary>
+    /// EndPoint to insert a new member to farm bank
+    /// </summary>
+    /// <param name="command"></param>
+    /// <returns></returns>
+    [SwaggerResponse(201, Type = typeof(Member))]
+    [SwaggerResponse(400, Type = typeof(ResponseResult<Member>))]
     [HttpPost]
     public async Task<IActionResult> NewMemberAsync(NewMemberCommand command)
     {
         var result = await _mediator.Send(command);
 
         if (result.IsValid)
-            return Ok(result);
+            return StatusCode(201, result.Result);
 
         return BadRequest(result);
     }

@@ -24,7 +24,7 @@ public class NewMemberDepositCommandHandler : ICommandHandler<NewMemberDepositCo
 
         if(member is null) return;
 
-        member.AddDeposit (new Models.Deposit());
+        member.AddDeposit (new Models.Deposit(request.TransactionId, request.Amount));
 
         await _memberRepository.ReplaceAsync(member, cancellationToken);
 
