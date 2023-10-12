@@ -28,6 +28,6 @@ public class NewPixCommandValidator : AbstractValidator<NewPixCommand>
     {
         RuleFor(px => px.Email).NotNull().NotEmpty().EmailAddress();
         RuleFor(px => px.PhoneNumber).NotNull().NotEmpty().Length(11);
-        RuleFor(px => px.Amount).NotEmpty().NotEmpty().GreaterThan(10);
+        RuleFor(px => px.Amount).NotEmpty().NotEmpty().GreaterThan(0);
     }
 }
