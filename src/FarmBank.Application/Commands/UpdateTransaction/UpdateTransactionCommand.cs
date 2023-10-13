@@ -14,7 +14,7 @@ public class UpdateTransactionCommand : ICommand
     [JsonPropertyName("date_created")]
     public string CreatedAt { get; set; }
     [JsonPropertyName("id")]
-    public string Id { get; set; }
+    public long Id { get; set; }
     [JsonPropertyName("user_id")]
     public string UserId { get; set; }
 }
