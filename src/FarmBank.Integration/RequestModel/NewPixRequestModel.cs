@@ -15,10 +15,7 @@ public struct NewPixRequestModel
     [JsonPropertyName("date_of_expiration")]
     public string ExpirationDate
     {
-        get { 
-            return DateTime.Now.AddHours(1).ToString("yyyy-MM-dd'T'HH:mm:ssz");
-        }
-
+        get => DateTime.Now.AddHours(1).ToString("yyyy-MM-dd'T'HH:mm:ss.fffK");
     }
 }
 public struct Payer
