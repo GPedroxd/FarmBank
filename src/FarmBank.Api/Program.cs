@@ -45,12 +45,20 @@ builder.Services.AddRefitClient<IWppApi>()
     c.BaseAddress = new Uri(builder.Configuration["WppApiUrl"] ?? "localhost:3333");
 });
 
+builder.Services.AddCors();
+
 var app = builder.Build();
 
 app.UseSwagger();
 app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
+
+app.UseCors(c => {
+    c.AllowAnyHeader();
+    c.WithMethods("POST");
+    c.AllowAnyOrigin();
+});
 
 app.UseAuthorization();
 
