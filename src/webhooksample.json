@@ -1,0 +1,63 @@
+{
+  "type": "message",
+  "body": {
+    "key": {
+      "remoteJid": "120363188612570035@g.us",
+      "fromMe": false,
+      "id": "3AF48D7E1E0FF8195409",
+      "participant": "5511969487369@s.whatsapp.net"
+    },
+    "messageTimestamp": 1697159707,
+    "pushName": "Vinicius Gadelha",
+    "broadcast": false,
+    "message": {
+      "conversation": "falancorno",
+      "senderKeyDistributionMessage": {
+        "groupId": "120363188612570035@g.us",
+        "axolotlSenderKeyDistributionMessage": "MwiK+/6sBhACGiBGfuB8T9BbclgRLm0uVuVMbAI7O8fH+wK5Bc2SIkIYUCIhBZLjvsilWyyoS10UR6pV9PtDhWGfV0bcEdbq4B7QRO92"
+      },
+      "messageContextInfo": {
+        "deviceListMetadata": {
+          "senderKeyHash": "/Etu4255Z4qTXQ==",
+          "senderTimestamp": "1696286095",
+          "recipientKeyHash": "3FmNC8uEz5OMsg==",
+          "recipientTimestamp": "1697088112"
+        },
+        "deviceListMetadataVersion": 2
+      }
+    },
+    "text": {
+      "messages": [
+        {
+          "key": {
+            "remoteJid": "120363188612570035@g.us",
+            "fromMe": false,
+            "id": "3AF48D7E1E0FF8195409",
+            "participant": "5511969487369@s.whatsapp.net"
+          },
+          "messageTimestamp": 1697159707,
+          "pushName": "Vinicius Gadelha",
+          "broadcast": false,
+          "message": {
+            "conversation": "falancorno",
+            "senderKeyDistributionMessage": {
+              "groupId": "120363188612570035@g.us",
+              "axolotlSenderKeyDistributionMessage": "MwiK+/6sBhACGiBGfuB8T9BbclgRLm0uVuVMbAI7O8fH+wK5Bc2SIkIYUCIhBZLjvsilWyyoS10UR6pV9PtDhWGfV0bcEdbq4B7QRO92"
+            },
+            "messageContextInfo": {
+              "deviceListMetadata": {
+                "senderKeyHash": "/Etu4255Z4qTXQ==",
+                "senderTimestamp": "1696286095",
+                "recipientKeyHash": "3FmNC8uEz5OMsg==",
+                "recipientTimestamp": "1697088112"
+              },
+              "deviceListMetadataVersion": 2
+            }
+          }
+        }
+      ],
+      "type": "notify"
+    }
+  },
+  "instanceKey": "123"
+}

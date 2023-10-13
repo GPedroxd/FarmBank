@@ -12,7 +12,7 @@ public class UpdateTransactionCommand : ICommand
     [JsonPropertyName("data")]
     public Data Data{ get; set; }
     [JsonPropertyName("date_created")]
-    public DateTime CreatedAt { get; set; }
+    public string CreatedAt { get; set; }
     [JsonPropertyName("id")]
     public string Id { get; set; }
     [JsonPropertyName("user_id")]
