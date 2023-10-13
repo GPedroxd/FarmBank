@@ -17,17 +17,15 @@ public class Member : IBaseEntity
     public DateTime? UpdatedAt { get ; set ; }
     public string Name{ get; init; }
     public string PhoneNumber { get; private set; }
-
-    private List<Deposit> _deposits { get; set; } = new ();
     
-    public IReadOnlyList<Deposit> Deposits { get => _deposits.AsReadOnly(); private set => _ = value; }
+    public List<Deposit> Deposits { get ; set ; } = new();
     
     public void AddDeposit(Deposit deposit)
     {
-        if(_deposits.Any(a => a.TransactionId.Equals(deposit.TransactionId)))
+        if(Deposits.Any(a => a.TransactionId.Equals(deposit.TransactionId)))
             return;
 
-        _deposits.Add(deposit);
+        Deposits.Add(deposit);
     }
     public decimal TotalDeposited { get => Deposits.Sum(s => s.Amount); set =>  _ = value; }
 }
