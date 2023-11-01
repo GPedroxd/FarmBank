@@ -7,6 +7,8 @@ using FarmBank.Integration.Interfaces;
 using FarmBank.Integration.Repository;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
+using Polly;
+using Polly.Extensions.Http;
 using Refit;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -39,11 +41,17 @@ builder.Services.AddRefitClient<IMercadoPagoApi>(new()
     c.BaseAddress = new Uri("https://api.mercadopago.com");
 });
 
+var retryPolicy = HttpPolicyExtensions.
+    HandleTransientHttpError().
+    OrResult( msg => !msg.IsSuccessStatusCode).
+    WaitAndRetryAsync(3, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)));
+
 builder.Services.AddRefitClient<IWppApi>()
 .ConfigureHttpClient(c =>
 {
     c.BaseAddress = new Uri(builder.Configuration["WppApiUrl"] ?? "localhost:3333");
-});
+})
+.AddPolicyHandler(retryPolicy);
 
 builder.Services.AddCors();
 

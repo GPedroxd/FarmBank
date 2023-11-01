@@ -20,10 +20,9 @@ public class SendWppMessageCommandHandler : ICommandHandler<SendWppMessageComman
 
     public async Task Handle(SendWppMessageCommand request, CancellationToken cancellationToken)
     {
-        _logger.LogInformation("building message template");
         var message = FormatMessage(request);
-
-        _logger.LogInformation("sending message to wpp api");
+        
+        _logger.LogInformation("building message template");
         await _wppService.SendMessagemAsync(message);
     }
 
