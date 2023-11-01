@@ -9,10 +9,10 @@ namespace FarmBank.Application.Commands.NewPix;
 public class NewPixCommandHandler : ICommandHandler<NewPixCommand, ResponseResult<QRCode>>
 {
     private readonly ILogger<NewPixCommandHandler> _logger;
-    private readonly IQRCodeService _qrCodeService;
+    private readonly ITransactionService _qrCodeService;
     private readonly ITransactionRepository _transactionRepository;
     private readonly IMemberRepository _memberRepository;
-    public NewPixCommandHandler(IQRCodeService qrCodeService, ITransactionRepository transactionRepository, IMemberRepository memberRepository, ILogger<NewPixCommandHandler> logger)
+    public NewPixCommandHandler(ITransactionService qrCodeService, ITransactionRepository transactionRepository, IMemberRepository memberRepository, ILogger<NewPixCommandHandler> logger)
     {
         _qrCodeService = qrCodeService;
         _transactionRepository = transactionRepository;

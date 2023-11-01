@@ -23,7 +23,7 @@ builder.Services.AddScoped(_ => new MongoContext(builder.Configuration["MongoDbC
 builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
 builder.Services.AddScoped<IMemberRepository, MemberRepository>();
 builder.Services.AddMediatR(conf => conf.RegisterServicesFromAssemblyContaining<NewPixCommand>());
-builder.Services.AddScoped<IQRCodeService, QRCodeService>();
+builder.Services.AddScoped<ITransactionService, TransactionService>();
 builder.Services.AddScoped<IWppService, WppService>();
 
 var wppConfig = new GeneralConfigs(

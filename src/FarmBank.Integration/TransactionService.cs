@@ -1,5 +1,6 @@
 using Amazon.Runtime.Internal.Util;
 using FarmBank.Application.Commands.NewPix;
+using FarmBank.Application.Dto;
 using FarmBank.Application.Interfaces;
 using FarmBank.Application.Models;
 using FarmBank.Integration.Interfaces;
@@ -8,12 +9,12 @@ using Microsoft.Extensions.Logging;
 
 namespace FarmBank.Integration;
 
-public class QRCodeService : IQRCodeService
+public class TransactionService : ITransactionService
 {
-    private readonly ILogger<QRCodeService> _logger;
+    private readonly ILogger<TransactionService> _logger;
     private readonly IMercadoPagoApi _mercadoPagoApi;
 
-    public QRCodeService(IMercadoPagoApi mercadoPagoApi, ILogger<QRCodeService> logger)
+    public TransactionService(IMercadoPagoApi mercadoPagoApi, ILogger<TransactionService> logger)
     {
         _mercadoPagoApi = mercadoPagoApi;
         _logger = logger;
@@ -44,6 +45,10 @@ public class QRCodeService : IQRCodeService
             response.PointOfInteraction.TransactionData.QRCodeBase64, response.ExpirationDate);
     }
 
+    public async Task<MarcadoPagoTransactionInfo> GetTransactionAsync(string transactionId)
+        =>   await _mercadoPagoApi.GetPaymentAsync(transactionId);
+
     private decimal GetAmmountWithDiscount(decimal ammount)
         => ammount * 0.99m;
+
 }

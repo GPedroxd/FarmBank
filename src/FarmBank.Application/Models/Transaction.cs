@@ -1,5 +1,6 @@
 using FarmBank.Application.Base;
 using FarmBank.Application.Commands.UpdateTransaction;
+using FarmBank.Application.Dto;
 
 namespace FarmBank.Application.Models;
 
@@ -73,12 +74,24 @@ public class Transaction : IBaseEntity
     public DateTime? PaymentDate { get; private set; }
     public string PayerId { get; private set; }
 
-    public void SetAsPaidOut(UpdateTransactionCommand update)
+    public void SetStatusTransaction(MarcadoPagoTransactionInfo update)
     {
-        PaymentDate = DateTime.UtcNow;
-        PayerId = update.UserId;
-        Status = TransactinoStatus.PaidOut;
+        Status = GetStatus(update.Status);
         SetUpdateAt();
+
+        if(Status != TransactinoStatus.PaidOut)
+            return;
+
+        PaymentDate = DateTime.UtcNow;
+        PayerId = update.Payer.Id;
+    }
+
+    private TransactinoStatus GetStatus(string statusRaw)
+    {
+        if(statusRaw.Equals("approved"))
+            return TransactinoStatus.PaidOut;
+
+        return TransactinoStatus.Error;
     }
 
     public void SetUpdateAt()
@@ -91,5 +104,5 @@ public class Transaction : IBaseEntity
 public enum TransactinoStatus {
     Pending,
     PaidOut,
-    TimeOut
+    Error
 }
