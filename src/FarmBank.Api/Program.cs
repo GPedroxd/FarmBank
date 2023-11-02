@@ -51,6 +51,7 @@ builder.Services.AddRefitClient<IWppApi>()
 .ConfigureHttpClient(c =>
 {
     c.BaseAddress = new Uri(builder.Configuration["WppApiUrl"] ?? "localhost:3333");
+    c.Timeout = TimeSpan.FromMinutes(3);
 })
 .AddPolicyHandler(retryPolicy);
 
