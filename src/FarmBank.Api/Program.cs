@@ -39,6 +39,7 @@ builder.Services.AddRefitClient<IMercadoPagoApi>(new()
 }).ConfigureHttpClient(c =>
 {
     c.BaseAddress = new Uri("https://api.mercadopago.com");
+    c.Timeout = TimeSpan.FromMinutes(3);
 });
 
 var retryPolicy = HttpPolicyExtensions.
