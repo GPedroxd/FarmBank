@@ -41,7 +41,7 @@ public class UpdateTransactionCommandHandler : ICommandHandler<UpdateTransaction
 
         await _transactionRepository.UpdateAsync(transaction, cancellationToken);
 
-        _logger.LogInformation($"transaction {transaction.TransactionId} status {transactionUpdated.Approved}");
+        _logger.LogInformation($"transaction {transaction.TransactionId} status {transactionUpdated.Status}");
 
         if(transaction.Status != Models.TransactinoStatus.PaidOut)
             return;
