@@ -5,13 +5,13 @@ namespace FarmBank.Application.Dto;
 public struct MarcadoPagoTransactionInfo
 {
     [JsonPropertyName("date_approved")]
-    public DateTime Approved { get; set; }
+    public string Approved { get; set; }
 
     [JsonPropertyName("date_last_updated")]
-    public DateTime LastUpdated { get; set; }
+    public string LastUpdated { get; set; }
 
     [JsonPropertyName("id")]
-    public string Id { get; set; }
+    public long Id { get; set; }
 
     [JsonPropertyName("status")]
     public string Status { get; set; }

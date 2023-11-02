@@ -83,7 +83,7 @@ public class Transaction : IBaseEntity
             return;
 
         PaymentDate = DateTime.UtcNow;
-        PayerId = update.Payer.Id;
+        PayerId = update.Payer.Id.ToString();
     }
 
     private TransactinoStatus GetStatus(string statusRaw)
