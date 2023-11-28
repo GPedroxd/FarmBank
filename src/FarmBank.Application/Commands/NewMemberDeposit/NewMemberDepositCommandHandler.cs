@@ -1,4 +1,5 @@
 using FarmBank.Application.Base;
+using FarmBank.Application.Dto;
 using FarmBank.Application.Interfaces;
 using Microsoft.Extensions.Logging;
 
@@ -10,13 +11,16 @@ public class NewMemberDepositCommandHandler : ICommandHandler<NewMemberDepositCo
     private readonly ITransactionRepository _transactionRepository;
     private readonly IMemberRepository _memberRepository;
     private readonly IWppService _wppService;
+    private readonly GeneralConfigs _configs;
 
-    public NewMemberDepositCommandHandler(IMemberRepository memberRepository, ITransactionRepository transactionRepository, ILogger<NewMemberDepositCommandHandler> logger, IWppService wppService)
+    public NewMemberDepositCommandHandler(IMemberRepository memberRepository, ITransactionRepository transactionRepository, 
+        IWppService wppService, GeneralConfigs configs, ILogger<NewMemberDepositCommandHandler> logger)
     {
         _memberRepository = memberRepository;
         _transactionRepository = transactionRepository;
         _logger = logger;
         _wppService = wppService;
+        _configs = configs;
     }
 
     public async Task Handle(NewMemberDepositCommand request, CancellationToken cancellationToken)
@@ -32,7 +36,7 @@ public class NewMemberDepositCommandHandler : ICommandHandler<NewMemberDepositCo
 
         var totalAmmount = await _transactionRepository.GetTotalAmountAsync(cancellationToken);
 
-        var message = new NewDepositWppMessage(member.Name, request.Amount, member.TotalDeposited, totalAmmount, null);
+        var message = new NewDepositWppMessage(member.Name, request.Amount, member.TotalDeposited, totalAmmount, _configs.FrontendUrl);
 
         await _wppService.SendMessagemAsync(message);
     }
