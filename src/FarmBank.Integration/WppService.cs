@@ -1,4 +1,5 @@
 using Amazon.Runtime.Internal.Util;
+using FarmBank.Application.Base;
 using FarmBank.Application.Dto;
 using FarmBank.Application.Interfaces;
 using FarmBank.Integration.Interfaces;
@@ -19,16 +20,18 @@ public class WppService : IWppService
         _logger = logger;
     }
 
-    public async Task SendMessagemAsync(string message)
+    public async Task SendMessagemAsync(IBaseWppMessage message)
     {
         var requestModel = new SendMessageRequestModel()
         {
             Id = _configs.GroupId,
-            Message = message
+            Message = message.GetFormatedMessage()
         }; 
 
         _logger.LogInformation("sending message to wpp api");
 
         var response = await _wppApi.SendMessageAsync(_configs.InstanceKey, requestModel);
+
+        _logger.LogInformation("Message sent to api.");
     }
 }

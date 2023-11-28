@@ -1,7 +1,6 @@
 using System.Globalization;
 using FarmBank.Application.Base;
 using FarmBank.Application.Commands.NewMemberDeposit;
-using FarmBank.Application.Commands.SendWppMessage;
 using FarmBank.Application.Interfaces;
 using MediatR;
 using Microsoft.Extensions.Logging;

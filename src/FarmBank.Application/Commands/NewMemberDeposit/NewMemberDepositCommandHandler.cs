@@ -1,8 +1,5 @@
-using System.Numerics;
 using FarmBank.Application.Base;
-using FarmBank.Application.Commands.SendWppMessage;
 using FarmBank.Application.Interfaces;
-using MediatR;
 using Microsoft.Extensions.Logging;
 
 namespace FarmBank.Application.Commands.NewMemberDeposit;
@@ -12,14 +9,14 @@ public class NewMemberDepositCommandHandler : ICommandHandler<NewMemberDepositCo
     private readonly ILogger<NewMemberDepositCommandHandler> _logger;
     private readonly ITransactionRepository _transactionRepository;
     private readonly IMemberRepository _memberRepository;
-    private readonly IMediator _mediator;
+    private readonly IWppService _wppService;
 
-    public NewMemberDepositCommandHandler(IMemberRepository memberRepository, IMediator mediator, ITransactionRepository transactionRepository, ILogger<NewMemberDepositCommandHandler> logger)
+    public NewMemberDepositCommandHandler(IMemberRepository memberRepository, ITransactionRepository transactionRepository, ILogger<NewMemberDepositCommandHandler> logger, IWppService wppService)
     {
         _memberRepository = memberRepository;
-        _mediator = mediator;
         _transactionRepository = transactionRepository;
         _logger = logger;
+        _wppService = wppService;
     }
 
     public async Task Handle(NewMemberDepositCommand request, CancellationToken cancellationToken)
@@ -35,6 +32,8 @@ public class NewMemberDepositCommandHandler : ICommandHandler<NewMemberDepositCo
 
         var totalAmmount = await _transactionRepository.GetTotalAmountAsync(cancellationToken);
 
-        await _mediator.Send(new SendWppMessageCommand(member.Name, request.Amount, member.TotalDeposited, totalAmmount));
+        var message = new NewDepositWppMessage(member.Name, request.Amount, member.TotalDeposited, totalAmmount, null);
+
+        await _wppService.SendMessagemAsync(message);
     }
 }
