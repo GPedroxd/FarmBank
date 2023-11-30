@@ -1,8 +1,9 @@
 using System.Text.Json.Serialization;
+using FarmBank.Application.Base;
 
 namespace FarmBank.Application.Commands.WppCommand;
 
-public record WppCommand
+public record WppCommand : ICommand<ResponseResult<bool>>
 {
     [JsonPropertyName("type")]
     public string Type { get; set; }

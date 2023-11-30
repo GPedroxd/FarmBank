@@ -20,7 +20,7 @@ public class WppCommandController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> WppCallback(WppCommand wppCommand)
     {
-        await Task.CompletedTask;
+        await _mediator.Send(wppCommand);
 
         return Ok();
     }
