@@ -15,6 +15,14 @@ public abstract class WppCommandHandlerBuilder
             return new InWppCommandHandler(memberRepository, wppService);
         }
 
+        if(commandType == WppCommandType.Ranking)
+        {
+            var memberRepository = serviceProvider.GetService<IMemberRepository>();
+            var wppService = serviceProvider.GetService<IWppService>();
+
+            return new RankingWppCommandHandler(memberRepository, wppService);
+        }
+
         throw new NotImplementedException();
     }
 }
