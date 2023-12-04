@@ -20,7 +20,7 @@ public class WppService : IWppService
         _logger = logger;
     }
 
-    public async Task SendMessagemAsync(IBaseWppMessage message)
+    public async Task SendMessagemAsync(IBaseWppMessage message, CancellationToken cancellationToken)
     {
         var requestModel = new SendMessageRequestModel()
         {

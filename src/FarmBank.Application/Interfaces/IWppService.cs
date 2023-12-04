@@ -4,5 +4,5 @@ namespace FarmBank.Application.Interfaces;
 
 public interface IWppService
 {
-    Task SendMessagemAsync(IBaseWppMessage message);
+    Task SendMessagemAsync(IBaseWppMessage message, CancellationToken cancellationToken);
 }

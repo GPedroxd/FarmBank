@@ -38,6 +38,6 @@ public class NewMemberDepositCommandHandler : ICommandHandler<NewMemberDepositCo
 
         var message = new NewDepositWppMessage(member.Name, request.Amount, member.TotalDeposited, totalAmmount, _configs.FrontendUrl);
 
-        await _wppService.SendMessagemAsync(message);
+        await _wppService.SendMessagemAsync(message, cancellationToken);
     }
 }

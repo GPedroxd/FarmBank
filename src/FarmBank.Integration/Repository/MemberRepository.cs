@@ -13,6 +13,9 @@ public class MemberRepository : IMemberRepository
         _context = context;
     }
 
+    public async Task<IEnumerable<Member>> GetAllAsync(CancellationToken cancellationToken)
+        => await _context.Member.FilterByAsync(f =>  true);
+
     public async Task<Member> GetByPhoneNumberAsync(string phoneNumber, CancellationToken cancellationToken)
         => await _context.Member.FirstOrDefaultAsync(f => f.PhoneNumber.Equals(phoneNumber));
 
