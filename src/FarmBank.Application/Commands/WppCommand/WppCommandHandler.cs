@@ -1,22 +1,27 @@
+using System.Text.Json;
 using FarmBank.Application.Base;
 using FarmBank.Application.Dto;
 using FarmBank.Application.WppCommands;
 using FluentValidation.Results;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace FarmBank.Application.Commands.WppCommand;
 
 public class WppCommandHandler : ICommandHandler<WppCommand, ResponseResult<bool>>
 {
     private readonly IServiceProvider _serviceProvider;
-
-    public WppCommandHandler(IServiceProvider serviceProvider)
+    private readonly ILogger<WppCommandHandler> _logger;
+    public WppCommandHandler(IServiceProvider serviceProvider, ILogger<WppCommandHandler> logger)
     {
         _serviceProvider = serviceProvider;
+        _logger = logger;
     }
 
     public async Task<ResponseResult<bool>> Handle(WppCommand request, CancellationToken cancellationToken)
     {
+        _logger.LogInformation(JsonSerializer.Serialize(request));
+
         if(!IsValidCommandFromFazendinha(request)) 
             return new ResponseResult<bool>(new ValidationFailure());
         

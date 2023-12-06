@@ -1,6 +1,7 @@
 using FarmBank.Application.Base;
 using FarmBank.Application.Dto;
 using FarmBank.Application.Interfaces;
+using FarmBank.Application.WppCommands;
 using Microsoft.Extensions.Logging;
 
 namespace FarmBank.Application.Commands.NewMemberDeposit;
@@ -39,5 +40,13 @@ public class NewMemberDepositCommandHandler : ICommandHandler<NewMemberDepositCo
         var message = new NewDepositWppMessage(member.Name, request.Amount, member.TotalDeposited, totalAmmount, _configs.FrontendUrl);
 
         await _wppService.SendMessagemAsync(message, cancellationToken);
+
+        var members = await _memberRepository.GetAllAsync(cancellationToken);
+
+        var rankingMembers = new RankingWppMessage(members);
+
+        await Task.Delay(1000);
+        
+        await _wppService.SendMessagemAsync(rankingMembers, cancellationToken);
     }
 }
