@@ -13,7 +13,7 @@ public static class BackgroundServiceConfiguration
             opts.AddJob<CountdownBackgoundJob>(jobKey)
                 .AddTrigger(triggerconfig => 
                     triggerconfig.ForJob(jobKey)
-                    .WithCronSchedule("0 0 8 * * ?"));
+                    .WithCronSchedule("0 0 4 * * ?"));
         });
 
         services.AddQuartzHostedService(opts =>
