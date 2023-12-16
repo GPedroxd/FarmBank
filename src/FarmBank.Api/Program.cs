@@ -1,3 +1,4 @@
+using FarmBank.Api.BackgroundService;
 using FarmBank.Application.Commands.NewPix;
 using FarmBank.Application.Dto;
 using FarmBank.Application.Interfaces;
@@ -19,6 +20,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 BsonSerializer.RegisterSerializer(new GuidSerializer(MongoDB.Bson.BsonType.String));
+
+builder.Services.AddBackgroundService();
 builder.Services.AddScoped(_ => new MongoContext(builder.Configuration["MongoDbConnectionString"], "FarmBank"));
 builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
 builder.Services.AddScoped<IMemberRepository, MemberRepository>();

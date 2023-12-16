@@ -9,6 +9,7 @@
     <PackageReference Include="fluentValidation" Version="11.7.1" />
     <PackageReference Include="MediaTr" Version="12.1.1" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="7.0.0" />
+    <PackageReference Include="Quartz.Extensions.Hosting" Version="3.8.0" />
   </ItemGroup>
 
 </Project>
