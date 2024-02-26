@@ -1,5 +1,5 @@
 using FarmBank.Api.BackgroundService;
-using FarmBank.Application.Commands.NewPix;
+using FarmBank.Application.Commands.NewPayment;
 using FarmBank.Application.Dto;
 using FarmBank.Application.Interfaces;
 using FarmBank.Integration;
@@ -27,7 +27,9 @@ builder.Services.AddScoped(
 );
 builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
 builder.Services.AddScoped<IMemberRepository, MemberRepository>();
-builder.Services.AddMediatR(conf => conf.RegisterServicesFromAssemblyContaining<NewPixCommand>());
+builder.Services.AddMediatR(
+    conf => conf.RegisterServicesFromAssemblyContaining<NewPaymentCommand>()
+);
 builder.Services.AddScoped<ITransactionService, TransactionService>();
 builder.Services.AddScoped<IWppService, WppService>();
 

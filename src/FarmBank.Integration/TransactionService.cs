@@ -1,5 +1,4 @@
-using Amazon.Runtime.Internal.Util;
-using FarmBank.Application.Commands.NewPix;
+using FarmBank.Application.Commands.NewPayment;
 using FarmBank.Application.Dto;
 using FarmBank.Application.Interfaces;
 using FarmBank.Application.Models;
@@ -20,14 +19,17 @@ public class TransactionService : ITransactionService
         _logger = logger;
     }
 
-    public async Task<Transaction> GenerateQRCodeAsync(NewPixCommand newPixCommand)
+    public async Task<Transaction> GeneratePaymentAsync(NewPaymentCommand newPaymentCommand)
     {
-        var payment = new NewPixRequestModel() {
+        var payment = new NewPaymentRequestModel()
+        {
             Description = "Pix fazendinha",
-            TransactionAmount = newPixCommand.Amount,
-            Payer = new() {
-                Email = newPixCommand.Email,
-            }
+            TransactionAmount = newPaymentCommand.Amount,
+            Payer = new() { Email = newPaymentCommand.Email, },
+            PaymentMethodId = newPaymentCommand.PaymentMethod,
+            Token = newPaymentCommand.Token,
+            Installments = newPaymentCommand.Installments,
+            IssuerId = newPaymentCommand.IssuerId
         };
 
         _logger.LogInformation($"sending request to Mercadopago API");
@@ -37,18 +39,18 @@ public class TransactionService : ITransactionService
         _logger.LogInformation($"transaction {response.TransactionId} created");
 
         return new Transaction(
-            newPixCommand.PhoneNumber, 
-            newPixCommand.Email,
+            newPaymentCommand.PhoneNumber,
+            newPaymentCommand.Email,
             response.TransactionId.ToString(),
-            GetAmmountWithDiscount(newPixCommand.Amount),
+            GetAmmountWithDiscount(newPaymentCommand.Amount),
             response.PointOfInteraction.TransactionData.QRCodeCopyPaste,
-            response.PointOfInteraction.TransactionData.QRCodeBase64, response.ExpirationDate);
+            response.PointOfInteraction.TransactionData.QRCodeBase64,
+            response.ExpirationDate
+        );
     }
 
-    public async Task<MarcadoPagoTransactionInfo> GetTransactionAsync(string transactionId)
-        =>   await _mercadoPagoApi.GetPaymentAsync(transactionId);
+    public async Task<MarcadoPagoTransactionInfo> GetTransactionAsync(string transactionId) =>
+        await _mercadoPagoApi.GetPaymentAsync(transactionId);
 
-    private decimal GetAmmountWithDiscount(decimal ammount)
-        => ammount * 0.99m;
-
+    private decimal GetAmmountWithDiscount(decimal ammount) => ammount * 0.99m;
 }
