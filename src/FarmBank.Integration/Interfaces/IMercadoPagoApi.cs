@@ -9,7 +9,7 @@ namespace FarmBank.Integration.Interfaces;
 public interface IMercadoPagoApi
 {
     [Post("/v1/payments")]
-    Task<QRCodeResponseModel> CreatePaymentAsync([Body]NewPixRequestModel request );
+    Task<QRCodeResponseModel> CreatePaymentAsync([Body] NewPaymentRequestModel request);
 
     [Get("/v1/payments/{id}")]
     Task<MarcadoPagoTransactionInfo> GetPaymentAsync(string id);
