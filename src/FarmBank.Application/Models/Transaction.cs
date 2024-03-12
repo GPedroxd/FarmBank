@@ -73,6 +73,7 @@ public class Transaction : IBaseEntity
     public DateTime ExpirationDate{ get; set; }
     public DateTime? PaymentDate { get; private set; }
     public string PayerId { get; private set; }
+    public Guid EventId { get; private set; }
 
     public void SetStatusTransaction(MarcadoPagoTransactionInfo update)
     {
@@ -99,6 +100,11 @@ public class Transaction : IBaseEntity
 
     protected void SetUpdateAt(DateTime? updatedAt)
         => UpdatedAt = updatedAt;
+
+    public void SetEventId(Guid eventId)
+    {
+        EventId = EventId;
+    }
 }
 
 public enum TransactinoStatus {
