@@ -1,5 +1,4 @@
-using FarmBank.Application.Interfaces;
-using FarmBank.Application.Models;
+using FarmBank.Application.Transaction;
 using FarmBank.Integration.Database;
 
 namespace FarmBank.Integration.Repository;

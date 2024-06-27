@@ -1,6 +1,6 @@
 using FarmBank.Application.Base;
-using FarmBank.Application.Commands.NewMember;
-using FarmBank.Application.Models;
+using FarmBank.Application.Member;
+using FarmBank.Application.Member.Commands.NewMember;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;

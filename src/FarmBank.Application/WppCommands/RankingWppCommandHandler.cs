@@ -1,5 +1,6 @@
 
 using FarmBank.Application.Interfaces;
+using FarmBank.Application.Member;
 
 namespace FarmBank.Application.WppCommands;
 

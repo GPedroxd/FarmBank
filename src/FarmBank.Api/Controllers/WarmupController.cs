@@ -1,4 +1,4 @@
-using FarmBank.Application.Models;
+using FarmBank.Application.Member;
 using FarmBank.Integration.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -24,7 +24,11 @@ public class WarmupController : ControllerBase
     [HttpGet]
     public async Task<IResult> WarmupAsync()
     {
-        await _wppApi.StatusAsync();
+        try
+        {
+            await _wppApi.StatusAsync();
+        }
+        catch (Exception) { }
         return TypedResults.Ok();
     }
 

@@ -1,7 +1,3 @@
-
-
-using FarmBank.Application.Models;
-
 namespace FarmBank.Application.Dto;
 
 public struct QRCode

@@ -1,7 +1,6 @@
-using FarmBank.Application.Commands.NewPayment;
 using FarmBank.Application.Dto;
-using FarmBank.Application.Interfaces;
-using FarmBank.Application.Models;
+using FarmBank.Application.Event.Commands.NewPayment;
+using FarmBank.Application.Transaction;
 using FarmBank.Integration.Interfaces;
 using FarmBank.Integration.RequestModel;
 using Microsoft.Extensions.Logging;

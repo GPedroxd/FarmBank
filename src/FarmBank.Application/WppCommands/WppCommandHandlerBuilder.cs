@@ -1,4 +1,5 @@
 using FarmBank.Application.Interfaces;
+using FarmBank.Application.Member;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace FarmBank.Application.WppCommands;

@@ -1,5 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
-using FarmBank.Application.Models;
+using FarmBank.Application.Member;
+using FarmBank.Application.Transaction;
 using FarmBank.Integration.Mongo;
 using MongoDB.Bson.Serialization;
 

@@ -1,7 +1,7 @@
 using FarmBank.Application.Base;
-using FarmBank.Application.Commands.NewPayment;
-using FarmBank.Application.Commands.UpdateTransaction;
 using FarmBank.Application.Dto;
+using FarmBank.Application.Event.Commands.NewPayment;
+using FarmBank.Application.Event.Commands.UpdateTransaction;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;

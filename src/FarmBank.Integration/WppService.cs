@@ -30,7 +30,14 @@ public class WppService : IWppService
 
         _logger.LogInformation("sending message to wpp api");
 
-        var response = await _wppApi.SendMessageAsync(_configs.InstanceKey, requestModel);
+        try
+        {
+            await _wppApi.SendMessageAsync(_configs.InstanceKey, requestModel);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Erro ao enviar messagem para wpp.");
+        }
 
         _logger.LogInformation("Message sent to api.");
     }
