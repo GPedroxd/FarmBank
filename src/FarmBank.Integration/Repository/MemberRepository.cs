@@ -1,4 +1,4 @@
-using FarmBank.Application.Member;
+using FarmBank.Core.Member;
 using FarmBank.Integration.Database;
 
 namespace FarmBank.Integration.Repository;

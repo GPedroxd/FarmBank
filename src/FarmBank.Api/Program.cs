@@ -1,9 +1,10 @@
 using FarmBank.Api.BackgroundService;
 using FarmBank.Application.Dto;
-using FarmBank.Application.Event.Commands.NewPayment;
 using FarmBank.Application.Interfaces;
-using FarmBank.Application.Member;
-using FarmBank.Application.Transaction;
+using FarmBank.Application.Payment;
+using FarmBank.Application.Transaction.Commands.NewPayment;
+using FarmBank.Core.Member;
+using FarmBank.Core.Transaction;
 using FarmBank.Integration;
 using FarmBank.Integration.Database;
 using FarmBank.Integration.Interfaces;
@@ -32,7 +33,7 @@ builder.Services.AddScoped<IMemberRepository, MemberRepository>();
 builder.Services.AddMediatR(
     conf => conf.RegisterServicesFromAssemblyContaining<NewPaymentCommand>()
 );
-builder.Services.AddScoped<ITransactionService, TransactionService>();
+builder.Services.AddScoped<IPaymentGatewayService, TransactionService>();
 builder.Services.AddScoped<IWppService, WppService>();
 
 var wppConfig = new GeneralConfigs(

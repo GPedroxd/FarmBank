@@ -1,8 +1,8 @@
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
-namespace FarmBank.Application.Dto;
+namespace FarmBank.Application.Payment;
 
-public struct MarcadoPagoTransactionInfo
+public class PaymentInformation
 {
     [JsonPropertyName("date_approved")]
     public string Approved { get; set; }
@@ -20,9 +20,8 @@ public struct MarcadoPagoTransactionInfo
     public Payer Payer { get; set; }
 }
 
-public struct Payer 
-{   
+public struct Payer
+{
     [JsonPropertyName("id")]
-    public string Id { get; set;}
-
+    public string Id { get; set; }
 }

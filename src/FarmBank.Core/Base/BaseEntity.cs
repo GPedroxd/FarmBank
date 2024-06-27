@@ -1,4 +1,4 @@
-namespace FarmBank.Application.Base;
+namespace FarmBank.Core.Base;
 
 public interface IBaseEntity
 {

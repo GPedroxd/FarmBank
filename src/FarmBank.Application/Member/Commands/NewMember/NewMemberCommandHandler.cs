@@ -1,18 +1,20 @@
 using FarmBank.Application.Base;
-using FarmBank.Application.Models;
+using FarmBank.Core.Member;
 
 namespace FarmBank.Application.Member.Commands.NewMember;
 
-public class NewMemberCommandHandler : ICommandHandler<NewMemberCommand, ResponseResult<Member>>
+public class NewMemberCommandHandler : ICommandHandler<NewMemberCommand, ResponseResult>
 {
     private readonly IMemberRepository _memberRepository;
+    private readonly EventDispatcher _dispatcher;
 
-    public NewMemberCommandHandler(IMemberRepository memberRepository)
+    public NewMemberCommandHandler(IMemberRepository memberRepository, EventDispatcher dispatcher)
     {
         _memberRepository = memberRepository;
+        _dispatcher = dispatcher;
     }
 
-    public async Task<ResponseResult<Member>> Handle(NewMemberCommand request, CancellationToken cancellationToken)
+    public async Task<ResponseResult> Handle(NewMemberCommand request, CancellationToken cancellationToken)
     {
         var validator = new NewMemberCommandValidator();
 
@@ -21,10 +23,12 @@ public class NewMemberCommandHandler : ICommandHandler<NewMemberCommand, Respons
         if (!validationResult.IsValid)
             return new(validationResult.Errors);
 
-        var member = new Member(request.Name, request.PhoneNumber);
+        var member = new Core.Member.Member(request.Name, request.PhoneNumber);
 
         await _memberRepository.InsertAsync(member, cancellationToken);
 
-        return new ResponseResult<Member>(member);
+        await _dispatcher.DispatchEvents(member, cancellationToken);
+
+        return  ResponseResult.ValidResult();
     }
 }

@@ -1,7 +1,7 @@
 using System.Text.Json.Serialization;
 using FarmBank.Application.Base;
 
-namespace FarmBank.Application.Event.Commands.UpdateTransaction;
+namespace FarmBank.Application.Transaction.Commands.UpdateTransaction;
 
 public class UpdateTransactionCommand : ICommand
 {

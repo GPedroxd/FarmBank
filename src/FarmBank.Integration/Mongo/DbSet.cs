@@ -1,12 +1,13 @@
 using System.Linq.Expressions;
 using FarmBank.Application.Base;
+using FarmBank.Core.Base;
 using FarmBank.Integration.Mongo.Interfaces;
 using MongoDB.Driver;
 
 namespace FarmBank.Integration.Mongo;
 
 public class DbSet<TEntity> : IDbSet<TEntity>
-    where TEntity : IBaseEntity
+    where TEntity : AggregateRoot
 {
     private readonly IMongoCollection<TEntity> _collection;
     private readonly ContextBase _context;

@@ -1,5 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using FarmBank.Application.Base;
+using FarmBank.Core.Base;
 using MongoDB.Driver;
 
 namespace FarmBank.Integration.Mongo;
@@ -18,7 +19,7 @@ public class ContextBase : IDisposable
     private bool _disposedValue;
 
     public DbSet<TEntity> GetDbSet<TEntity>(string collectionName = null)
-        where TEntity : IBaseEntity
+        where TEntity : AggregateRoot
     {
         return new DbSet<TEntity>(this, collectionName);
     }

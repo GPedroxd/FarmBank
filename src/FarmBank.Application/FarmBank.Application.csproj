@@ -1,15 +1,20 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="fluentValidation" Version="11.7.1" />
-    <PackageReference Include="MediaTr" Version="12.1.1" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="7.0.0" />
-    <PackageReference Include="Quartz.Extensions.Hosting" Version="3.8.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="fluentValidation" Version="11.7.1" />
+		<PackageReference Include="MediaTr" Version="12.1.1" />
+		<PackageReference Include="Microsoft.Extensions.Logging" Version="7.0.0" />
+		<PackageReference Include="Quartz.Extensions.Hosting" Version="3.8.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\FarmBank.Core\FarmBank.Core.csproj" />
+	</ItemGroup>
 
 </Project>

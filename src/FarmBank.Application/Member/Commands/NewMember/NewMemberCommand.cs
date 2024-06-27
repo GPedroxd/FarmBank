@@ -5,7 +5,7 @@ using FluentValidation;
 
 namespace FarmBank.Application.Member.Commands.NewMember;
 
-public class NewMemberCommand : ICommand<ResponseResult<Member>>
+public class NewMemberCommand : ICommand<ResponseResult>
 {
     [JsonConstructor]
     public NewMemberCommand(string name, string phoneNumber)

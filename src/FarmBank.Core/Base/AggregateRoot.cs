@@ -4,7 +4,7 @@ namespace FarmBank.Core.Base;
 
 public abstract class AggregateRoot : IAggregateRoot
 {
-    public Guid Id { get; private set; } = Guid.NewGuid();
+    public Guid Id { get; protected set; } = Guid.NewGuid();
     public abstract IReadOnlyCollection<DomainEventBase> Events { get; }
     public abstract DateTime CreatedAt { get ; init ; }
     public abstract DateTime? UpdatedAt { get ; set ; }

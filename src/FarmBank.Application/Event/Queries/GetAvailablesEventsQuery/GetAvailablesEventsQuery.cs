@@ -1,8 +1,8 @@
 using FarmBank.Application.Base;
 
-namespace FarmBank.Application.Queries.GetAvailablesEventsQuery;
+namespace FarmBank.Application.Event.Queries.GetAvailablesEventsQuery;
 
 public class GetAvailablesEventsQuery : ICommand<ResponseResult<IEnumerable<EventDto>>>
 {
-    
+
 }

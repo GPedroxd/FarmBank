@@ -1,4 +1,4 @@
-namespace FarmBank.Application.Transaction;
+namespace FarmBank.Core.Transaction;
 
 public interface ITransactionRepository
 {

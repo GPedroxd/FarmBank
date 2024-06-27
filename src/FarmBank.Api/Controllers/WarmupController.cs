@@ -20,7 +20,7 @@ public class WarmupController : ControllerBase
     /// Warmuping endpoint
     /// </summary>
     /// <returns></returns>
-    [SwaggerResponse(200, Type = typeof(Member))]
+    [SwaggerResponse(200)]
     [HttpGet]
     public async Task<IResult> WarmupAsync()
     {

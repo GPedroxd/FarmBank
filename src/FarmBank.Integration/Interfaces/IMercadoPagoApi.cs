@@ -1,4 +1,4 @@
-using FarmBank.Application.Dto;
+using FarmBank.Application.Payment;
 using FarmBank.Integration.RequestModel;
 using FarmBank.Integration.ResponseModel;
 using Refit;
@@ -12,5 +12,5 @@ public interface IMercadoPagoApi
     Task<QRCodeResponseModel> CreatePaymentAsync([Body] NewPaymentRequestModel request);
 
     [Get("/v1/payments/{id}")]
-    Task<MarcadoPagoTransactionInfo> GetPaymentAsync(string id);
+    Task<PaymentInformation> GetPaymentAsync(string id);
 }

@@ -2,7 +2,7 @@ using FarmBank.Application.Base;
 using FarmBank.Application.Dto;
 using FluentValidation;
 
-namespace FarmBank.Application.Event.Commands.NewPayment;
+namespace FarmBank.Application.Transaction.Commands.NewPayment;
 
 public class NewPaymentCommand : ICommand<ResponseResult<QRCode>>
 {

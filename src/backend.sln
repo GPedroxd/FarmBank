@@ -9,7 +9,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FarmBank.Application", "Far
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FarmBank.Integration", "FarmBank.Integration\FarmBank.Integration.csproj", "{98E29234-C5EC-406F-B09A-FA8AA1A583FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarmBank.Core", "FarmBank.Core\FarmBank.Core.csproj", "{ABD1A9DF-A4F9-40EF-931D-835420523AAE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FarmBank.Core", "FarmBank.Core\FarmBank.Core.csproj", "{ABD1A9DF-A4F9-40EF-931D-835420523AAE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F3D1F993-EC42-4576-B994-14EC1A3436E2}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

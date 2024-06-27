@@ -4,14 +4,14 @@ namespace FarmBank.Core.Event;
 
 public class Event : AggregateRoot
 {
-    public Event() { }
+    internal Event() { }
 
     public Event(string name, DateTime startsOn, DateTime endsOn)
     {
         CreatedAt = DateTime.Now;
         Name = name;
         StartedOn = startsOn;
-        EndsIn = endsOn;
+        EndsOn = endsOn;
         UpdatedAt = DateTime.Now;
         Active = true;
     }
@@ -19,7 +19,7 @@ public class Event : AggregateRoot
     public Guid Id { get; init; } = Guid.NewGuid();
     public string Name { get; init; }
     public DateTime StartedOn { get; private set; }
-    public DateTime EndsIn { get; private set; }
+    public DateTime EndsOn { get; private set; }
     public bool Active { get; private set; }
     public DateTime? DeactivatedAt { get; private set; }
 

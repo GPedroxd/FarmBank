@@ -1,8 +1,8 @@
-using System.Diagnostics.CodeAnalysis;
-using FarmBank.Application.Member;
-using FarmBank.Application.Transaction;
+using FarmBank.Core.Member;
+using FarmBank.Core.Transaction;
 using FarmBank.Integration.Mongo;
 using MongoDB.Bson.Serialization;
+using System.Diagnostics.CodeAnalysis;
 
 namespace FarmBank.Integration.Database;
 

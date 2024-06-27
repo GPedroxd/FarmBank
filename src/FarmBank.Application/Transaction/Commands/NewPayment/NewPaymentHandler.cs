@@ -1,24 +1,25 @@
 using FarmBank.Application.Base;
 using FarmBank.Application.Dto;
-using FarmBank.Application.Member;
-using FarmBank.Application.Transaction;
+using FarmBank.Application.Payment;
+using FarmBank.Core.Member;
+using FarmBank.Core.Transaction;
 using FluentValidation.Results;
 using Microsoft.Extensions.Logging;
 
-namespace FarmBank.Application.Event.Commands.NewPayment;
+namespace FarmBank.Application.Transaction.Commands.NewPayment;
 
 public class NewPaymentCommandHandler : ICommandHandler<NewPaymentCommand, ResponseResult<QRCode>>
 {
     private readonly ILogger<NewPaymentCommandHandler> _logger;
     private readonly IMemberRepository _memberRepository;
     private readonly ITransactionRepository _transactionRepository;
-    private readonly ITransactionService _transactionService;
+    private readonly IPaymentGatewayService _transactionService;
 
     public NewPaymentCommandHandler(
         IMemberRepository memberRepository,
         ILogger<NewPaymentCommandHandler> logger,
         ITransactionRepository transactionRepository,
-        ITransactionService transactionService
+        IPaymentGatewayService transactionService
     )
     {
         _memberRepository = memberRepository;
@@ -57,8 +58,10 @@ public class NewPaymentCommandHandler : ICommandHandler<NewPaymentCommand, Respo
             "qr code generated of amount {amount} to {memberName} with transaction id {transactionId}.", request.Amount, member.Name, transaction.TransactionId
         );
 
-        await _transactionRepository.InsertAsync(transaction, cancellationToken);
+        //await _transactionRepository.InsertAsync(transaction, cancellationToken);
 
-        return new ResponseResult<QRCode>(transaction);
+        //return new ResponseResult<QRCode>(transaction);
+
+        throw new NotImplementedException();
     }
 }

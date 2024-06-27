@@ -6,7 +6,7 @@ namespace FarmBank.Core.Transaction;
 
 public class Transaction : AggregateRoot
 {
-    public Transaction()
+    internal Transaction()
     {
     }
 
@@ -16,8 +16,7 @@ public class Transaction : AggregateRoot
         string userEmail,
         string transactionId,
         decimal amount,
-        string pixCopyPaste,
-        string qRCode,
+        PaymentMethod paymentMethod,
         DateTime expirationDate)
     {
         EventId = eventId;
@@ -26,8 +25,7 @@ public class Transaction : AggregateRoot
         TransactionId = transactionId;
         Amount = amount;
         Status = TransactionStatus.Pending;
-        PixCopyPaste = pixCopyPaste;
-        QRCode = qRCode;
+        PaymentMethod = paymentMethod;
 
         ExpirationDate = expirationDate;
     }
@@ -42,8 +40,7 @@ public class Transaction : AggregateRoot
         string transactionId,
         decimal amount,
         TransactionStatus status,
-        string pixCopyPaste,
-        string qRCode,
+        PaymentMethod paymentMethod,
         DateTime expirationDate,
         DateTime? paymentDate,
         string payerId) :
@@ -51,8 +48,7 @@ public class Transaction : AggregateRoot
           userEmail,
           transactionId,
           amount,
-          pixCopyPaste,
-          qRCode,
+          paymentMethod,
           expirationDate)
     {
         Status = status;
@@ -63,19 +59,16 @@ public class Transaction : AggregateRoot
         SetUpdateAt(updatedAt);
     }
 
-    public Guid Id { get; init; } = Guid.NewGuid();
     public string UserPhoneNumber { get; init; }
     public string UserEmail { get; init; }
     public string TransactionId { get; init; }
     public decimal Amount { get; init; }
     public TransactionStatus Status { get; private set; }
-    public string PixCopyPaste { get; init; }
-    public string QRCode { get; init; }
     public DateTime ExpirationDate { get; set; }
     public DateTime? PaymentDate { get; private set; }
-    public string PayerId { get; private set; }
-    public Guid EventId { get; private set; }
-
+    public string? PayerId { get; private set; }
+    public Guid EventId { get; init; }
+    public PaymentMethod PaymentMethod { get; init; }
     private List<DomainEventBase> _events = new();
     public override IReadOnlyCollection<DomainEventBase> Events => _events.AsReadOnly();
 

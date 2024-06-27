@@ -2,7 +2,7 @@ namespace FarmBank.Core.Event;
 
 public class Deposit
 {
-    public Deposit()
+    internal Deposit()
     { }
 
     public Deposit(string transactionId, decimal amount, Guid memberId, string memberName)

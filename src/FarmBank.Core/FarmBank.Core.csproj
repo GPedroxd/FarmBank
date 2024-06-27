@@ -8,7 +8,4 @@
 	<ItemGroup>
 		<PackageReference Include="MediaTr" Version="12.1.1" />
 	</ItemGroup>
-	<ItemGroup>
-	  <Folder Include="Event\Events\" />
-	</ItemGroup>
 </Project>

@@ -1,4 +1,6 @@
 using FarmBank.Application.Transaction;
+using FarmBank.Core.Transaction;
+using FarmBank.Core.Transaction.Enums;
 using FarmBank.Integration.Database;
 
 namespace FarmBank.Integration.Repository;
@@ -19,7 +21,7 @@ public class TransactionRepository : ITransactionRepository
 
     public async Task<decimal> GetTotalAmountAsync(CancellationToken cancellationToken)
     {
-        var trans = await _context.Transaction.FilterByAsync(f => f.Status == TransactinoStatus.PaidOut);
+        var trans = await _context.Transaction.FilterByAsync(f => f.Status == TransactionStatus.PaidOut);
         return trans.Sum(s => s.Amount);
     }
 
