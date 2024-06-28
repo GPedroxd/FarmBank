@@ -1,16 +1,12 @@
 using FarmBank.Api.BackgroundService;
+using FarmBank.Application.Base;
+using FarmBank.Application.Communication;
 using FarmBank.Application.Dto;
-using FarmBank.Application.Interfaces;
 using FarmBank.Application.Payment;
 using FarmBank.Application.Transaction.Commands.NewPayment;
-using FarmBank.Core.Member;
-using FarmBank.Core.Transaction;
 using FarmBank.Integration;
-using FarmBank.Integration.Database;
+using FarmBank.Integration.DataAccess.Database;
 using FarmBank.Integration.Interfaces;
-using FarmBank.Integration.Repository;
-using MongoDB.Bson.Serialization;
-using MongoDB.Bson.Serialization.Serializers;
 using Polly;
 using Polly.Extensions.Http;
 using Refit;
@@ -22,19 +18,18 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-BsonSerializer.RegisterSerializer(new GuidSerializer(MongoDB.Bson.BsonType.String));
+builder.Services.AddMongoDbRepositories();
 
 builder.Services.AddBackgroundService();
 builder.Services.AddScoped(
     _ => new MongoContext(builder.Configuration["MongoDbConnectionString"], "FarmBank")
 );
-builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
-builder.Services.AddScoped<IMemberRepository, MemberRepository>();
 builder.Services.AddMediatR(
     conf => conf.RegisterServicesFromAssemblyContaining<NewPaymentCommand>()
 );
+builder.Services.AddScoped<EventDispatcher>();
 builder.Services.AddScoped<IPaymentGatewayService, TransactionService>();
-builder.Services.AddScoped<IWppService, WppService>();
+builder.Services.AddTransient<ICommunicatonService, WppService>();
 
 var wppConfig = new GeneralConfigs(
     builder.Configuration["WppGroupId"],

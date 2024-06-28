@@ -1,8 +1,8 @@
 using FarmBank.Application.Base;
 
-namespace FarmBank.Application.Interfaces;
+namespace FarmBank.Application.Communication;
 
-public interface IWppService
+public interface ICommunicatonService
 {
     Task SendMessagemAsync(IBaseWppMessage message, CancellationToken cancellationToken);
 }

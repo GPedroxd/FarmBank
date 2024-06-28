@@ -1,6 +1,6 @@
 using FarmBank.Application.BackgroundServices.CountdownBackgroundService;
+using FarmBank.Application.Communication;
 using FarmBank.Application.Dto;
-using FarmBank.Application.Interfaces;
 using Microsoft.Extensions.Logging;
 using Quartz;
 
@@ -8,9 +8,9 @@ namespace FarmBank.Application.BackgrounService.CountdownBackgoundService;
 
 public class CountdownBackgoundJob : IJob
 {
-    private readonly IWppService _wppService;
+    private readonly ICommunicatonService _wppService;
     private readonly GeneralConfigs _configs;
-    public CountdownBackgoundJob(IWppService wppService, GeneralConfigs configs)
+    public CountdownBackgoundJob(ICommunicatonService wppService, GeneralConfigs configs)
     {
         _wppService = wppService;
         _configs = configs;

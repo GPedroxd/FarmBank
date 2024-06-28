@@ -1,5 +1,5 @@
+using FarmBank.Application.Communication;
 using FarmBank.Application.Dto;
-using FarmBank.Application.Interfaces;
 using FarmBank.Core.Event;
 using FarmBank.Core.Transaction;
 using FarmBank.Core.Transaction.Events;
@@ -12,12 +12,12 @@ public class TransactionPaidEventdHandler : INotificationHandler<TransactionPaid
 {
     private readonly ILogger<TransactionPaidEventdHandler> _logger;
     private readonly ITransactionRepository _transactionRepository;
-    private readonly IWppService _wppService;
+    private readonly ICommunicatonService _wppService;
     private readonly GeneralConfigs _configs;
 
 
     public TransactionPaidEventdHandler(ITransactionRepository transactionRepository,
-        IWppService wppService, GeneralConfigs configs, ILogger<TransactionPaidEventdHandler> logger, IEventRepository eventRepository)
+        ICommunicatonService wppService, GeneralConfigs configs, ILogger<TransactionPaidEventdHandler> logger, IEventRepository eventRepository)
     {
         _transactionRepository = transactionRepository;
         _logger = logger;

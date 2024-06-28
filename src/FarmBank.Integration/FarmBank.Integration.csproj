@@ -3,7 +3,7 @@
     <ProjectReference Include="..\FarmBank.Application\FarmBank.Application.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="MongoDB.Driver" Version="2.21.0" />
+    <PackageReference Include="MongoDB.Driver" Version="2.26.0" />
     <PackageReference Include="Refit" Version="7.0.0" />
   </ItemGroup>
   <PropertyGroup>

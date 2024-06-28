@@ -1,14 +1,14 @@
 using Amazon.Runtime.Internal.Util;
 using FarmBank.Application.Base;
+using FarmBank.Application.Communication;
 using FarmBank.Application.Dto;
-using FarmBank.Application.Interfaces;
 using FarmBank.Integration.Interfaces;
 using FarmBank.Integration.RequestModel;
 using Microsoft.Extensions.Logging;
 
 namespace FarmBank.Integration;
 
-public class WppService : IWppService
+public class WppService : ICommunicatonService
 {
     private readonly ILogger<WppService> _logger;
     private readonly IWppApi _wppApi;

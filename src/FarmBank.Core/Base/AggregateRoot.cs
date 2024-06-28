@@ -1,17 +1,21 @@
-﻿
-
-namespace FarmBank.Core.Base;
+﻿namespace FarmBank.Core.Base;
 
 public abstract class AggregateRoot : IAggregateRoot
 {
     public Guid Id { get; protected set; } = Guid.NewGuid();
-    public abstract IReadOnlyCollection<DomainEventBase> Events { get; }
-    public abstract DateTime CreatedAt { get ; init ; }
-    public abstract DateTime? UpdatedAt { get ; set ; }
+    private List<DomainEventBase> _events = new();
+    public  IReadOnlyCollection<DomainEventBase> Events { get => _events.AsReadOnly(); }
+    public  DateTime CreatedAt { get ; init ; }
+    public  DateTime? UpdatedAt { get ; set ; }
 
-    public abstract void AddEvent(DomainEventBase @event);
+     public void AddEvent(DomainEventBase @event)
+        => _events.Add(@event);
 
-    public abstract void ClearEvents();
+    public void ClearEvents()
+        => _events.Clear();
 
-    public abstract void CommitChanges();
+    public void CommitChanges()
+    {
+        throw new NotImplementedException();
+    }
 }

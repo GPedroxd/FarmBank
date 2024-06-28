@@ -70,10 +70,6 @@ public class Transaction : AggregateRoot
     public Guid EventId { get; init; }
     public PaymentMethod PaymentMethod { get; init; }
     private List<DomainEventBase> _events = new();
-    public override IReadOnlyCollection<DomainEventBase> Events => _events.AsReadOnly();
-
-    public override DateTime CreatedAt { get; init; }
-    public override DateTime? UpdatedAt { get; set; }
 
     public void Pay(string payerId)
     {
@@ -93,15 +89,4 @@ public class Transaction : AggregateRoot
 
     protected void SetUpdateAt(DateTime? updatedAt)
         => UpdatedAt = updatedAt;
-
-    public override void AddEvent(DomainEventBase @event)
-        => _events.Add(@event);
-
-    public override void ClearEvents()
-        => _events.Clear();
-
-    public override void CommitChanges()
-    {
-        throw new NotImplementedException();
-    }
 }

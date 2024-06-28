@@ -7,7 +7,10 @@ public class EventDispatcher
 {
     private readonly IMediator _mediator;
 
-    public async Task DispatchEvents(IAggregateRoot aggregate, CancellationToken cancellationToken = default)
+    public EventDispatcher(IMediator mediator)
+        =>  _mediator = mediator;
+    
+    public async Task DispatchEvents(AggregateRoot aggregate, CancellationToken cancellationToken = default)
     {
         foreach (var @event in aggregate.Events) 
             await _mediator.Publish(@event, cancellationToken);

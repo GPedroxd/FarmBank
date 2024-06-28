@@ -1,8 +1,9 @@
-﻿using MediatR;
+﻿using FarmBank.Core.Base;
+using MediatR;
 
 namespace FarmBank.Core.Event.Events;
 
-public class EventCreatedEvent : INotification
+public class EventCreatedEvent : DomainEventBase
 {
     public EventCreatedEvent(Guid eventId, string eventName)
     {

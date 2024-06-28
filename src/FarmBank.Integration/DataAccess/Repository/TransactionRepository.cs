@@ -1,9 +1,9 @@
 using FarmBank.Application.Transaction;
 using FarmBank.Core.Transaction;
 using FarmBank.Core.Transaction.Enums;
-using FarmBank.Integration.Database;
+using FarmBank.Integration.DataAccess.Database;
 
-namespace FarmBank.Integration.Repository;
+namespace FarmBank.Integration.DataAccess.Repository;
 
 public class TransactionRepository : ITransactionRepository
 {

@@ -3,14 +3,14 @@ using FarmBank.Application.Base;
 using FarmBank.Core.Base;
 using MongoDB.Driver;
 
-namespace FarmBank.Integration.Mongo;
+namespace FarmBank.Integration.DataAccess.Mongo;
 
 public class ContextBase : IDisposable
 {
     internal readonly IMongoClient _client;
     internal readonly IMongoDatabase _database;
 
-    public ContextBase([NotNull] string connectionString,[NotNull] string databaseName)
+    public ContextBase([NotNull] string connectionString, [NotNull] string databaseName)
     {
         _client = new MongoClient(connectionString);
         _database = _client.GetDatabase(databaseName);

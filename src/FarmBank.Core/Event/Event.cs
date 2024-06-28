@@ -1,4 +1,5 @@
 using FarmBank.Core.Base;
+using FarmBank.Core.Event.Events;
 
 namespace FarmBank.Core.Event;
 
@@ -10,53 +11,81 @@ public class Event : AggregateRoot
     {
         CreatedAt = DateTime.Now;
         Name = name;
-        StartedOn = startsOn;
+        StartsOn = startsOn;
         EndsOn = endsOn;
         UpdatedAt = DateTime.Now;
-        Active = true;
-    }
+        _active = true;
 
-    public Guid Id { get; init; } = Guid.NewGuid();
+        AddEvent(new EventCreatedEvent(this.Id, this.Name));
+    }
     public string Name { get; init; }
-    public DateTime StartedOn { get; private set; }
+    public DateTime StartsOn { get; private set; }
     public DateTime EndsOn { get; private set; }
-    public bool Active { get; private set; }
+    private bool? _active;
+    public bool Active
+    {
+        get
+        {
+            if (_active != null)
+                return _active.Value;
+
+            if (DeactivatedAt is not null)
+            {
+                _active = false;
+
+                return _active.Value;
+            }
+
+            if (DateTime.Now >= StartsOn)
+            {
+                Deactivate();
+                _active = false;
+
+                return _active.Value;
+            }
+
+            _active = true;
+            return _active.Value;
+        }
+        private set
+        {
+            _ = value;
+        }
+    }
     public DateTime? DeactivatedAt { get; private set; }
 
-    public List<Deposit> Deposits { get; set; } = new();
+    private List<Deposit> _deposits { get; set; } = new();
+    public IReadOnlyCollection<Deposit> Deposits { get => _deposits.AsReadOnly(); }
     public void Deposit(Deposit deposit)
     {
         if (!Active)
             return;
 
-        if (Deposits.Any(a => a.TransactionId.Equals(deposit.TransactionId)))
+        if (_deposits.Any(a => a.TransactionId.Equals(deposit.TransactionId)))
             return;
 
-        Deposits.Add(deposit);
+        _deposits.Add(deposit);
+
+        var depositEvent = new DepositMadeEvent(deposit.MemberId, deposit.MemberName, this.Id,deposit.Amount);
+
+        AddEvent(depositEvent);
     }
-    public decimal TotalDeposited { get => Deposits.Sum(s => s.Amount); set => _ = value; }
+
+    public void deactivate()
+    {
+        DeactivatedAt = DateTime.Now;
+        UpdatedAt = DateTime.Now;
+        _active = false;
+    }
+
+    public decimal TotalDeposited { get => _deposits.Sum(s => s.Amount); }
 
     private List<DomainEventBase> _events = new();
-    public override IReadOnlyCollection<DomainEventBase> Events => _events.AsReadOnly();
-
-    public override DateTime CreatedAt { get ; init ; }
-    public override DateTime? UpdatedAt { get ; set ; }
 
     public void Deactivate()
     {
         UpdatedAt = DateTime.Now;
-        Active = false;
+        _active = false;
         DeactivatedAt = DateTime.Now;
-    }
-
-    public override void AddEvent(DomainEventBase @event)
-        => _events.Add(@event);
-
-    public override void ClearEvents()
-        => _events.Clear();
-
-    public override void CommitChanges()
-    {
-        throw new NotImplementedException();
     }
 }

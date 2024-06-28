@@ -1,6 +1,6 @@
 using System.Linq.Expressions;
 
-namespace FarmBank.Integration.Mongo.Interfaces;
+namespace FarmBank.Integration.DataAccess.Mongo.Interfaces;
 
 public interface IDbSet<TEntity>
 {

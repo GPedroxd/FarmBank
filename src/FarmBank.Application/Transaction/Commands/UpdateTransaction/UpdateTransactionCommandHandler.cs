@@ -10,7 +10,7 @@ public class UpdateTransactionCommandHandler : ICommandHandler<UpdateTransaction
 {
     private readonly ILogger<UpdateTransactionCommandHandler> _logger;
     private readonly ITransactionRepository _transactionRepository;
-    private readonly IPaymentGatewayService _transactionService;
+    private readonly IPaymentGatewayService _paymentGatewayService;
     private readonly EventDispatcher _dispatcher;
 
     public async Task Handle(UpdateTransactionCommand request, CancellationToken cancellationToken)
@@ -26,7 +26,7 @@ public class UpdateTransactionCommandHandler : ICommandHandler<UpdateTransaction
         if (transaction.Status == TransactionStatus.PaidOut)
             return;
 
-        var transactionUpdated = await _transactionService.GetTransactionAsync(transaction.TransactionId);
+        var transactionUpdated = await _paymentGatewayService.GetTransactionAsync(transaction.TransactionId);
         
         await _transactionRepository.UpdateAsync(transaction, cancellationToken);
 

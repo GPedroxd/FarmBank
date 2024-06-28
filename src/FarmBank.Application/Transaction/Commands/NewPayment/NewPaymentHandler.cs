@@ -1,5 +1,4 @@
 using FarmBank.Application.Base;
-using FarmBank.Application.Dto;
 using FarmBank.Application.Payment;
 using FarmBank.Core.Member;
 using FarmBank.Core.Transaction;

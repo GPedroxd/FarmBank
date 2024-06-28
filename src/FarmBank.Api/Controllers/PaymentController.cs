@@ -1,5 +1,4 @@
 using FarmBank.Application.Base;
-using FarmBank.Application.Dto;
 using FarmBank.Application.Transaction.Commands.NewPayment;
 using FarmBank.Application.Transaction.Commands.UpdateTransaction;
 using MediatR;

@@ -1,4 +1,4 @@
-namespace FarmBank.Application.Dto;
+namespace FarmBank.Application.Transaction.Commands.NewPayment;
 
 public struct QRCode
 {

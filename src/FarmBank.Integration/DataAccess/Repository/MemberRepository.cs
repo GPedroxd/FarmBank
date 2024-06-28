@@ -1,7 +1,7 @@
 using FarmBank.Core.Member;
-using FarmBank.Integration.Database;
+using FarmBank.Integration.DataAccess.Database;
 
-namespace FarmBank.Integration.Repository;
+namespace FarmBank.Integration.DataAccess.Repository;
 
 public class MemberRepository : IMemberRepository
 {
@@ -13,7 +13,7 @@ public class MemberRepository : IMemberRepository
     }
 
     public async Task<IEnumerable<Member>> GetAllAsync(CancellationToken cancellationToken)
-        => await _context.Member.FilterByAsync(f =>  true);
+        => await _context.Member.FilterByAsync(f => true);
 
     public async Task<Member> GetByPhoneNumberAsync(string phoneNumber, CancellationToken cancellationToken)
         => await _context.Member.FirstOrDefaultAsync(f => f.PhoneNumber.Equals(phoneNumber));
