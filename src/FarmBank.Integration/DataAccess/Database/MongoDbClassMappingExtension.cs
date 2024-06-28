@@ -3,6 +3,7 @@ using FarmBank.Core.Event;
 using FarmBank.Core.Member;
 using FarmBank.Core.Transaction;
 using FarmBank.Integration.DataAccess.Repository;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
@@ -15,10 +16,6 @@ public static class MongoDbClassMappingExtension
     public static IServiceCollection AddMongoDbRepositories(this IServiceCollection services)
     {
         BsonSerializer.RegisterSerializer(new GuidSerializer(MongoDB.Bson.BsonType.String));
-
-        services.AddTransient<ITransactionRepository, TransactionRepository>();
-        services.AddTransient<IMemberRepository, MemberRepository>();
-        services.AddTransient<IEventRepository, EventRepository>();
 
         if (!BsonClassMap.IsClassMapRegistered(typeof(AggregateRoot)))
             BsonClassMap.RegisterClassMap<AggregateRoot>(cm =>
@@ -51,6 +48,18 @@ public static class MongoDbClassMappingExtension
                     .SetSerializer(new DecimalSerializer(BsonType.Decimal128));
 
             });
+
+        var iConfig = services.BuildServiceProvider().GetRequiredService<IConfiguration>();
+
+        services.AddScoped(
+            _ => new MongoContext(iConfig["MongoDbConnectionString"], "test")
+        );
+
+        services.AddTransient<ITransactionRepository, TransactionRepository>();
+        services.AddTransient<IMemberRepository, MemberRepository>();
+        services.AddTransient<IEventRepository, EventRepository>();
+
+
 
         return services;
     }

@@ -1,4 +1,4 @@
-namespace FarmBank.Integration.ResponseModel;
+namespace FarmBank.Integration.Communication;
 
 public struct SentMessageResponseModel
 {

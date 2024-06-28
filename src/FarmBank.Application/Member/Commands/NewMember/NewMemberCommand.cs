@@ -1,6 +1,5 @@
 using System.Text.Json.Serialization;
 using FarmBank.Application.Base;
-using FarmBank.Application.Models;
 using FluentValidation;
 
 namespace FarmBank.Application.Member.Commands.NewMember;

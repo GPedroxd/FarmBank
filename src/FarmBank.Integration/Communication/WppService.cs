@@ -1,12 +1,8 @@
-using Amazon.Runtime.Internal.Util;
-using FarmBank.Application.Base;
 using FarmBank.Application.Communication;
 using FarmBank.Application.Dto;
-using FarmBank.Integration.Interfaces;
-using FarmBank.Integration.RequestModel;
 using Microsoft.Extensions.Logging;
 
-namespace FarmBank.Integration;
+namespace FarmBank.Integration.Communication;
 
 public class WppService : ICommunicatonService
 {
@@ -20,13 +16,13 @@ public class WppService : ICommunicatonService
         _logger = logger;
     }
 
-    public async Task SendMessagemAsync(IBaseWppMessage message, CancellationToken cancellationToken)
+    public async Task SendMessagemAsync(CommunicationMessage message, CancellationToken cancellationToken)
     {
         var requestModel = new SendMessageRequestModel()
         {
             Id = _configs.GroupId,
             Message = message.GetFormatedMessage()
-        }; 
+        };
 
         _logger.LogInformation("sending message to wpp api");
 

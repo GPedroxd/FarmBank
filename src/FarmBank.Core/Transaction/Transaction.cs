@@ -56,7 +56,7 @@ public class Transaction : AggregateRoot
         PayerId = payerId;
         Id = id;
         CreatedAt = createdAt;
-        SetUpdateAt(updatedAt);
+        UpdatedAt = updatedAt;
     }
 
     public string UserPhoneNumber { get; init; }
@@ -71,7 +71,7 @@ public class Transaction : AggregateRoot
     public PaymentMethod PaymentMethod { get; init; }
     private List<DomainEventBase> _events = new();
 
-    public void Pay(string payerId)
+    public void Pay(string payerId, DateTime paymentDate)
     {
         if (Status != TransactionStatus.PaidOut)
             return;
@@ -79,14 +79,9 @@ public class Transaction : AggregateRoot
         Status = TransactionStatus.PaidOut;
 
         PayerId = payerId;
-        PaymentDate = DateTime.Now;
+        PaymentDate = paymentDate;
+        UpdatedAt = DateTime.Now;
 
         _events.Add(new TransactionPaidEvent(TransactionId));
     }
-
-    public void SetUpdateAt()
-        => UpdatedAt = DateTime.UtcNow;
-
-    protected void SetUpdateAt(DateTime? updatedAt)
-        => UpdatedAt = updatedAt;
 }

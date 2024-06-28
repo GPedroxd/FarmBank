@@ -1,4 +1,4 @@
-namespace FarmBank.Integration.RequestModel;
+namespace FarmBank.Integration.Communication;
 
 public struct SendMessageRequestModel
 {

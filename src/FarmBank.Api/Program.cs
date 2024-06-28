@@ -4,9 +4,9 @@ using FarmBank.Application.Communication;
 using FarmBank.Application.Dto;
 using FarmBank.Application.Payment;
 using FarmBank.Application.Transaction.Commands.NewPayment;
-using FarmBank.Integration;
+using FarmBank.Integration.Communication;
 using FarmBank.Integration.DataAccess.Database;
-using FarmBank.Integration.Interfaces;
+using FarmBank.Integration.PaymentGateway;
 using Polly;
 using Polly.Extensions.Http;
 using Refit;
@@ -21,14 +21,12 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddMongoDbRepositories();
 
 builder.Services.AddBackgroundService();
-builder.Services.AddScoped(
-    _ => new MongoContext(builder.Configuration["MongoDbConnectionString"], "FarmBank")
-);
+
 builder.Services.AddMediatR(
     conf => conf.RegisterServicesFromAssemblyContaining<NewPaymentCommand>()
 );
 builder.Services.AddScoped<EventDispatcher>();
-builder.Services.AddScoped<IPaymentGatewayService, TransactionService>();
+builder.Services.AddScoped<IPaymentGatewayService, MercadoPagoPaymentGateway>();
 builder.Services.AddTransient<ICommunicatonService, WppService>();
 
 var wppConfig = new GeneralConfigs(

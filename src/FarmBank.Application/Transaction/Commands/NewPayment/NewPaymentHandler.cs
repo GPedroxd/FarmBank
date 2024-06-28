@@ -51,16 +51,16 @@ public class NewPaymentCommandHandler : ICommandHandler<NewPaymentCommand, Respo
 
         _logger.LogInformation("generating qr code of amount {amount} to {memberName}", request.Amount, member.Name);
 
-        var transaction = await _transactionService.GeneratePaymentAsync(request);
+        var paymentInformation = await _transactionService.GeneratePaymentAsync(request);
 
         _logger.LogInformation(
-            "qr code generated of amount {amount} to {memberName} with transaction id {transactionId}.", request.Amount, member.Name, transaction.TransactionId
+            "qr code generated of amount {amount} to {memberName} with transaction id {transactionId}.", request.Amount, member.Name, paymentInformation.TransactionId
         );
 
-        //await _transactionRepository.InsertAsync(transaction, cancellationToken);
+        Core.Transaction.Transaction transaction = paymentInformation;
 
-        //return new ResponseResult<QRCode>(transaction);
+        await _transactionRepository.InsertAsync(transaction, cancellationToken);
 
-        throw new NotImplementedException();
+        return new ResponseResult<QRCode>(paymentInformation.GetQrInformation());
     }
 }

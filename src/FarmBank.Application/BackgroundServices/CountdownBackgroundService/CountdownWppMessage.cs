@@ -1,8 +1,8 @@
-using FarmBank.Application.Base;
+using FarmBank.Application.Communication;
 
 namespace FarmBank.Application.BackgroundServices.CountdownBackgroundService;
 
-public class CountdownWppMessage : IBaseWppMessage
+public class CountdownWppMessage : CommunicationMessage
 {
     public static DateTime FARMDAY = new DateTime(2024, 01, 19);
     private int daysLeft;

@@ -1,5 +1,5 @@
 using FarmBank.Application.Member;
-using FarmBank.Integration.Interfaces;
+using FarmBank.Integration.Communication;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 

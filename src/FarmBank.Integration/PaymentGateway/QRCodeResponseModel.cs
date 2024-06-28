@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace FarmBank.Integration.ResponseModel;
+namespace FarmBank.Integration.PaymentGateway;
 
 public struct QRCodeResponseModel
 {
@@ -14,7 +14,8 @@ public struct QRCodeResponseModel
     public PointOfInteractionResponseModel PointOfInteraction { get; set; }
 }
 
-public struct PointOfInteractionResponseModel {
+public struct PointOfInteractionResponseModel
+{
     [JsonPropertyName("transaction_data")]
     public TransactionDataResponseModel TransactionData { get; set; }
 }

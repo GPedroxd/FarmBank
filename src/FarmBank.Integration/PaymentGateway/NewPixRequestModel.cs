@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace FarmBank.Integration.RequestModel;
+namespace FarmBank.Integration.PaymentGateway;
 
 public struct NewPaymentRequestModel
 {

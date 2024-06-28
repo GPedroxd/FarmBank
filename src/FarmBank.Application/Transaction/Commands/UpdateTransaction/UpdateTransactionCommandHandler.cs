@@ -26,11 +26,11 @@ public class UpdateTransactionCommandHandler : ICommandHandler<UpdateTransaction
         if (transaction.Status == TransactionStatus.PaidOut)
             return;
 
-        var transactionUpdated = await _paymentGatewayService.GetTransactionAsync(transaction.TransactionId);
+        var paymentInformation = await _paymentGatewayService.GetTransactionAsync(transaction.TransactionId);
         
         await _transactionRepository.UpdateAsync(transaction, cancellationToken);
 
-        _logger.LogInformation("transaction {transactionId} status {status}", transaction.TransactionId, transactionUpdated.Status);
+        _logger.LogInformation("transaction {transactionId} status {status}", transaction.TransactionId, paymentInformation.Status);
 
         if (transaction.Status != TransactionStatus.PaidOut)
             return;

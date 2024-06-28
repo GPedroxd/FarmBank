@@ -1,9 +1,7 @@
 using FarmBank.Application.Payment;
-using FarmBank.Integration.RequestModel;
-using FarmBank.Integration.ResponseModel;
 using Refit;
 
-namespace FarmBank.Integration.Interfaces;
+namespace FarmBank.Integration.PaymentGateway;
 
 [Headers("Authorization: Bearer")]
 public interface IMercadoPagoApi
