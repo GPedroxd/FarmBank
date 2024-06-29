@@ -7,9 +7,9 @@ namespace FarmBank.Application.Communication.Handlers.EventCreated;
 public class EventCreatedEventHandler : INotificationHandler<EventCreatedEvent>
 {
     private readonly IEventRepository _eventRepository;
-    private readonly ICommunicatonService _communicatonService;
+    private readonly ICommunicationService _communicatonService;
 
-    public EventCreatedEventHandler(IEventRepository eventRepository, ICommunicatonService communicatonService)
+    public EventCreatedEventHandler(IEventRepository eventRepository, ICommunicationService communicatonService)
     {
         _eventRepository = eventRepository;
         _communicatonService = communicatonService;

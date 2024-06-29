@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 
 namespace FarmBank.Integration.Communication;
 
-public class WppService : ICommunicatonService
+public class WppService : ICommunicationService
 {
     private readonly ILogger<WppService> _logger;
     private readonly IWppApi _wppApi;
@@ -15,7 +15,7 @@ public class WppService : ICommunicatonService
         _logger = logger;
     }
 
-    public async Task SendMessagemAsync(CommunicationMessage message, CancellationToken cancellationToken)
+    public async Task SendMessagemAsync(ICommunicationMessage message, CancellationToken cancellationToken)
     {
         var requestModel = new SendMessageRequestModel()
         {

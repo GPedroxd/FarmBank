@@ -1,6 +1,6 @@
 namespace FarmBank.Application.Communication;
 
-public interface CommunicationMessage
+public interface ICommunicationMessage
 {
     string GetFormatedMessage();
 }

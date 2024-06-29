@@ -1,6 +1,6 @@
 ﻿namespace FarmBank.Application.Communication.Handlers.EventCreated;
 
-public record NewEventCreatedMessage : CommunicationMessage
+public record NewEventCreatedMessage : ICommunicationMessage
 {
     public Guid EventId { get; init; }
     public string EventName { get; init; }

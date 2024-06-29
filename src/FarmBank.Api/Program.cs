@@ -23,7 +23,7 @@ builder.Services.AddMediatR(
 );
 builder.Services.AddScoped<EventDispatcher>();
 builder.Services.AddScoped<IPaymentGatewayService, MercadoPagoPaymentGateway>();
-builder.Services.AddTransient<ICommunicatonService, WppService>();
+builder.Services.AddTransient<ICommunicationService, WppService>();
 
 var wppConfig = new WppConfigs(
     builder.Configuration["WppGroupId"],
