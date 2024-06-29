@@ -1,8 +1,8 @@
-namespace FarmBank.Application.Dto;
+namespace FarmBank.Integration.Communication;
 
-public class GeneralConfigs
+public class WppConfigs
 {
-    public GeneralConfigs(string groupId, string instanceKey, string frontendUrl)
+    public WppConfigs(string groupId, string instanceKey, string frontendUrl)
     {
         GroupId = groupId;
         InstanceKey = instanceKey;

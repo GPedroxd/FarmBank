@@ -5,6 +5,7 @@ namespace FarmBank.Application.Transaction.Commands.NewPayment;
 
 public class NewPaymentCommand : ICommand<ResponseResult<QRCode>>
 {
+    public Guid EventId { get; set; }
     public string Token { get; set; }
     public decimal Amount { get; set; }
     public int Installments { get; set; }

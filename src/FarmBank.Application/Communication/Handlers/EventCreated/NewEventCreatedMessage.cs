@@ -12,7 +12,6 @@ public record NewEventCreatedMessage : CommunicationMessage
         return MESSAGETEMPLATE;
     }
 
-
     private static string MESSAGETEMPLATE = $@"
             NÓIS DA O CU, PORRA
 HAHAHAHAHAHAHAHAHAHAHAHAHAHAHHA

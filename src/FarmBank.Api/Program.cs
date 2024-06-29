@@ -1,7 +1,5 @@
-using FarmBank.Api.BackgroundService;
 using FarmBank.Application.Base;
 using FarmBank.Application.Communication;
-using FarmBank.Application.Dto;
 using FarmBank.Application.Payment;
 using FarmBank.Application.Transaction.Commands.NewPayment;
 using FarmBank.Integration.Communication;
@@ -20,8 +18,6 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddMongoDbRepositories();
 
-builder.Services.AddBackgroundService();
-
 builder.Services.AddMediatR(
     conf => conf.RegisterServicesFromAssemblyContaining<NewPaymentCommand>()
 );
@@ -29,7 +25,7 @@ builder.Services.AddScoped<EventDispatcher>();
 builder.Services.AddScoped<IPaymentGatewayService, MercadoPagoPaymentGateway>();
 builder.Services.AddTransient<ICommunicatonService, WppService>();
 
-var wppConfig = new GeneralConfigs(
+var wppConfig = new WppConfigs(
     builder.Configuration["WppGroupId"],
     builder.Configuration["WppBotInstanceKey"],
     builder.Configuration["FrontEndUrl"]

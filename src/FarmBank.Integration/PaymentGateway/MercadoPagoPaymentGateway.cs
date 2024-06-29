@@ -7,6 +7,9 @@ namespace FarmBank.Integration.PaymentGateway;
 
 public class MercadoPagoPaymentGateway : IPaymentGatewayService
 {
+    private const decimal PIX_DISCOUNT = .01m;
+    private const decimal CC_DISCOUNT = .05M;
+
     private readonly ILogger<MercadoPagoPaymentGateway> _logger;
     private readonly IMercadoPagoApi _mercadoPagoApi;
 
@@ -44,10 +47,11 @@ public class MercadoPagoPaymentGateway : IPaymentGatewayService
     private PaymentCreated GetPayment(NewPaymentCommand command, QRCodeResponseModel response)
     {
         var paymentMethod = "pix".Equals(command.PaymentMethod) ? PaymentMethod.Pix : PaymentMethod.CreditCard;
-        var discountPercentage = paymentMethod == PaymentMethod.Pix ? 0.01m : 0.05m;
+        var discountPercentage = paymentMethod == PaymentMethod.Pix ? PIX_DISCOUNT : CC_DISCOUNT;
         var amounWithDiscount = command.Amount * (100 - discountPercentage);
 
         return new PaymentCreated(
+            command.EventId,
             response.TransactionId.ToString(),
             command.Email,
             command.PhoneNumber,

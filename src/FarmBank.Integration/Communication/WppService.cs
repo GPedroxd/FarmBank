@@ -1,5 +1,4 @@
 using FarmBank.Application.Communication;
-using FarmBank.Application.Dto;
 using Microsoft.Extensions.Logging;
 
 namespace FarmBank.Integration.Communication;
@@ -8,8 +7,8 @@ public class WppService : ICommunicatonService
 {
     private readonly ILogger<WppService> _logger;
     private readonly IWppApi _wppApi;
-    private readonly GeneralConfigs _configs;
-    public WppService(IWppApi wppApi, GeneralConfigs configs, ILogger<WppService> logger)
+    private readonly WppConfigs _configs;
+    public WppService(IWppApi wppApi, WppConfigs configs, ILogger<WppService> logger)
     {
         _wppApi = wppApi;
         _configs = configs;

@@ -52,15 +52,13 @@ public static class MongoDbClassMappingExtension
         var iConfig = services.BuildServiceProvider().GetRequiredService<IConfiguration>();
 
         services.AddScoped(
-            _ => new MongoContext(iConfig["MongoDbConnectionString"], "test")
+            _ => new MongoContext(iConfig["MongoDbConnectionString"], iConfig["DatabaseName"])
         );
 
         services.AddTransient<ITransactionRepository, TransactionRepository>();
         services.AddTransient<IMemberRepository, MemberRepository>();
         services.AddTransient<IEventRepository, EventRepository>();
-
-
-
+        
         return services;
     }
 }
