@@ -80,8 +80,6 @@ public class Event : AggregateRoot
 
     public decimal TotalDeposited { get => _deposits.Sum(s => s.Amount); }
 
-    private List<DomainEventBase> _events = new();
-
     public void Deactivate()
     {
         UpdatedAt = DateTime.Now;
