@@ -20,20 +20,20 @@ public class WppService : ICommunicationService
         var requestModel = new SendMessageRequestModel()
         {
             Id = _configs.GroupId,
-            Message = message.GetFormatedMessage()
+            Message = message.GetFormatedMessage().Replace("@LINK", _configs.FrontendUrl)
         };
-
+        
         _logger.LogInformation("sending message to wpp api");
 
         try
         {
             await _wppApi.SendMessageAsync(_configs.InstanceKey, requestModel);
+
+            _logger.LogInformation("Message sent to api.");
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Erro ao enviar messagem para wpp.");
         }
-
-        _logger.LogInformation("Message sent to api.");
     }
 }

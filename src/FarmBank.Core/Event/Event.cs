@@ -7,7 +7,7 @@ public class Event : AggregateRoot
 {
     internal Event() { }
 
-    public Event(string name, DateTime startsOn, DateTime endsOn)
+    public Event(string name, DateTime? startsOn, DateTime? endsOn)
     {
         CreatedAt = DateTime.Now;
         Name = name;
@@ -19,8 +19,8 @@ public class Event : AggregateRoot
         AddEvent(new EventCreatedEvent(this.Id, this.Name));
     }
     public string Name { get; init; }
-    public DateTime StartsOn { get; private set; }
-    public DateTime EndsOn { get; private set; }
+    public DateTime? StartsOn { get; private set; }
+    public DateTime? EndsOn { get; private set; }
     private bool? _active;
     public bool Active
     {
