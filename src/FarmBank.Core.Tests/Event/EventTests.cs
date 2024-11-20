@@ -53,5 +53,4 @@ public class EventTests
         @event.Events.Count.Should().Be(2);
     }
 
-    
 }

@@ -2,10 +2,11 @@ using Refit;
 
 namespace FarmBank.Integration.Communication;
 
+[Headers("Authorization: Basic")]
 public interface IWppApi
 {
-    [Post("/message/text?key={key}")]
-    Task<SentMessageResponseModel> SendMessageAsync([AliasAs("key")] string instanceKey, [Body] SendMessageRequestModel request);
+    [Post("/send/message")]
+    Task<SentMessageResponseModel> SendMessageAsync([Body] SendMessageRequestModel request);
 
     [Get("/status")]
     Task<IApiResponse> StatusAsync();

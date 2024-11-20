@@ -6,9 +6,7 @@ namespace FarmBank.Core.Transaction;
 
 public class Transaction : AggregateRoot
 {
-    internal Transaction()
-    {
-    }
+    internal Transaction(){ }
 
     public Transaction(
         Guid eventId,
@@ -59,9 +57,9 @@ public class Transaction : AggregateRoot
         UpdatedAt = updatedAt;
     }
 
-    public string UserPhoneNumber { get; init; }
-    public string UserEmail { get; init; }
-    public string TransactionId { get; init; }
+    public string? UserPhoneNumber { get; init; } = default!;
+    public string? UserEmail { get; init; } = default!;
+    public string? TransactionId { get; init; } = default!;
     public decimal Amount { get; init; }
     public TransactionStatus Status { get; private set; }
     public DateTime ExpirationDate { get; set; }
@@ -82,6 +80,6 @@ public class Transaction : AggregateRoot
         PaymentDate = paymentDate;
         UpdatedAt = DateTime.Now;
 
-        _events.Add(new TransactionPaidEvent(TransactionId));
+        _events.Add(new TransactionPaidEvent(TransactionId ?? throw new ArgumentNullException(nameof(TransactionId))));
     }
 }

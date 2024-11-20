@@ -13,6 +13,18 @@ public class UpdateTransactionCommandHandler : ICommandHandler<UpdateTransaction
     private readonly IPaymentGatewayService _paymentGatewayService;
     private readonly EventDispatcher _dispatcher;
 
+    public UpdateTransactionCommandHandler(
+        ILogger<UpdateTransactionCommandHandler> logger,
+        ITransactionRepository transactionRepository,
+        IPaymentGatewayService paymentGatewayService, 
+        EventDispatcher dispatcher)
+    {
+        _logger = logger;
+        _transactionRepository = transactionRepository;
+        _paymentGatewayService = paymentGatewayService;
+        _dispatcher = dispatcher;
+    }
+
     public async Task Handle(UpdateTransactionCommand request, CancellationToken cancellationToken)
     {
         if (!request.Action.Equals("payment.updated"))
@@ -26,11 +38,13 @@ public class UpdateTransactionCommandHandler : ICommandHandler<UpdateTransaction
         if (transaction.Status == TransactionStatus.PaidOut)
             return;
 
-        var paymentInformation = await _paymentGatewayService.GetTransactionAsync(transaction.TransactionId);
+        var paymentInformation = await _paymentGatewayService.GetTransactionAsync(transaction.TransactionId ?? $"{DateTime.Now}");
         
+        transaction.Pay(paymentInformation.Payer.Id, DateTime.Parse(paymentInformation.ApprovedAt));
+
         await _transactionRepository.UpdateAsync(transaction, cancellationToken);
 
-        _logger.LogInformation("transaction {transactionId} status {status}", transaction.TransactionId, paymentInformation.Status);
+        _logger.LogInformation("transaction {transactionId} status {status}.", transaction.TransactionId, paymentInformation.Status);
 
         if (transaction.Status != TransactionStatus.PaidOut)
             return;

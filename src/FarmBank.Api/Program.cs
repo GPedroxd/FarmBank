@@ -1,13 +1,15 @@
-using FarmBank.Application.Base;
+using FarmBank.Application;
 using FarmBank.Application.Communication;
 using FarmBank.Application.Payment;
-using FarmBank.Application.Transaction.Commands.NewPayment;
 using FarmBank.Integration.Communication;
 using FarmBank.Integration.DataAccess.Database;
 using FarmBank.Integration.PaymentGateway;
 using Polly;
 using Polly.Extensions.Http;
 using Refit;
+using System.Net.Http;
+
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,21 +20,26 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddMongoDbRepositories();
 
-builder.Services.AddMediatR(
-    conf => conf.RegisterServicesFromAssemblyContaining<NewPaymentCommand>()
-);
-builder.Services.AddScoped<EventDispatcher>();
+builder.Services.AddApplicationDependencies();
 builder.Services.AddScoped<IPaymentGatewayService, MercadoPagoPaymentGateway>();
 builder.Services.AddTransient<ICommunicationService, WppService>();
 
 var wppConfig = new WppConfigs(
     builder.Configuration["WppGroupId"],
     builder.Configuration["WppBotInstanceKey"],
-    builder.Configuration["FrontEndUrl"]
+    builder.Configuration["FrontEndUrl"],
+    builder.Configuration["WppUsername"],
+    builder.Configuration["WppPassword"]
 );
+
 builder.Services.AddSingleton(wppConfig);
 
-builder
+var cred = Convert.
+            ToBase64String(
+            Encoding.UTF8
+                    .GetBytes($"{wppConfig.UserName}:{wppConfig.Password}"));
+
+ builder
     .Services.AddRefitClient<IMercadoPagoApi>(
         new()
         {
@@ -52,7 +59,11 @@ var retryPolicy = HttpPolicyExtensions
     .WaitAndRetryAsync(3, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)));
 
 builder
-    .Services.AddRefitClient<IWppApi>()
+    .Services.AddRefitClient<IWppApi>(new()
+    {
+        AuthorizationHeaderValueGetter = (msg, ct_) => 
+        Task.FromResult(cred)
+    })
     .ConfigureHttpClient(c =>
     {
         c.BaseAddress = new Uri(builder.Configuration["WppApiUrl"] ?? "localhost:3333");
@@ -76,7 +87,7 @@ app.UseHttpsRedirection();
 app.UseCors(c =>
 {
     c.AllowAnyHeader();
-    c.WithMethods("POST");
+    c.WithMethods("*");
     c.AllowAnyOrigin();
 });
 

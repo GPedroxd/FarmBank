@@ -18,7 +18,7 @@ public class Event : AggregateRoot
 
         AddEvent(new EventCreatedEvent(this.Id, this.Name));
     }
-    public string Name { get; init; }
+    public string? Name { get; init; } = default!;
     public DateTime? StartsOn { get; private set; }
     public DateTime? EndsOn { get; private set; }
     private bool? _active;
@@ -66,7 +66,7 @@ public class Event : AggregateRoot
 
         _deposits.Add(deposit);
 
-        var depositEvent = new DepositMadeEvent(deposit.MemberId, deposit.MemberName, this.Id,deposit.Amount);
+        var depositEvent = new DepositMadeEvent(deposit.MemberId, deposit.MemberName ?? "Fefault User", this.Id,deposit.Amount);
 
         AddEvent(depositEvent);
     }

@@ -19,7 +19,7 @@ public class WppService : ICommunicationService
     {
         var requestModel = new SendMessageRequestModel()
         {
-            Id = _configs.GroupId,
+            Phone = _configs.GroupId,
             Message = message.GetFormatedMessage().Replace("@LINK", _configs.FrontendUrl)
         };
         
@@ -27,7 +27,7 @@ public class WppService : ICommunicationService
 
         try
         {
-            await _wppApi.SendMessageAsync(_configs.InstanceKey, requestModel);
+            var response = await _wppApi.SendMessageAsync(requestModel);
 
             _logger.LogInformation("Message sent to api.");
         }

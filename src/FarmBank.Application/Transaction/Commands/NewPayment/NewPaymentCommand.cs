@@ -6,13 +6,13 @@ namespace FarmBank.Application.Transaction.Commands.NewPayment;
 public class NewPaymentCommand : ICommand<ResponseResult<QRCode>>
 {
     public Guid EventId { get; set; }
-    public string Token { get; set; }
+    public string? Token { get; set; }
     public decimal Amount { get; set; }
     public int Installments { get; set; }
     public string PhoneNumber { get; set; }
     public string Email { get; set; }
     public string PaymentMethod { get; set; }
-    public string IssuerId { get; set; }
+    public string? IssuerId { get; set; }
 }
 
 public class NewPaymentCommandValidator : AbstractValidator<NewPaymentCommand>
