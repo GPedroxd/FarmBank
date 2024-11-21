@@ -27,6 +27,6 @@ public class EventCreatedEventHandler : INotificationHandler<EventCreatedEvent>
             StartsOn = @event.StartsOn,
         };
 
-        await _communicatonService.SendMessagemAsync(communicationMsg, cancellationToken);
+        await _communicatonService.SendMessagemAsync(communicationMsg, cancellationToken: cancellationToken);
     }
 }

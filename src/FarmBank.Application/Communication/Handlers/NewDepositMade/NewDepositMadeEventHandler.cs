@@ -54,6 +54,6 @@ public class NewDepositMadeEventHandler : INotificationHandler<DepositMadeEvent>
             Placements = depositOrderd.Take(10).Select(s =>  new Deposit() { MemberName = s.MemberName, TotalDeposited = s.Amount })
         };
 
-        await _communicationService.SendMessagemAsync(newDepositedMessage, cancellationToken);
+        await _communicationService.SendMessagemAsync(newDepositedMessage, cancellationToken: cancellationToken);
     }
 }

@@ -15,12 +15,13 @@ public class WppService : ICommunicationService
         _logger = logger;
     }
 
-    public async Task SendMessagemAsync(ICommunicationMessage message, CancellationToken cancellationToken)
+    public async Task SendMessagemAsync(ICommunicationMessage message,string? replyTo = null, CancellationToken cancellationToken = default)
     {
         var requestModel = new SendMessageRequestModel()
         {
             Phone = _configs.GroupId,
-            Message = message.GetFormatedMessage().Replace("@LINK", _configs.FrontendUrl)
+            Message = message.GetFormatedMessage().Replace("@LINK", _configs.FrontendUrl),
+            ReplyTo = replyTo
         };
         
         _logger.LogInformation("sending message to wpp api");

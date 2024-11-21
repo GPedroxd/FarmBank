@@ -3,7 +3,7 @@
 public record NewEventCreatedMessage : ICommunicationMessage
 {
     public Guid EventId { get; init; }
-    public string EventName { get; init; }
+    public string EventName { get; init; } = default!;
     public DateTime? StartsOn { get; init; }
     public DateTime? EndsOn { get; init; }
 
@@ -12,22 +12,26 @@ public record NewEventCreatedMessage : ICommunicationMessage
         var period = string.Empty;
 
         if (StartsOn is null)
-            period = "a ser definido";
+            period = "*a ser definido* \r\n"
+                     + "Mais informações em breve!!!";
         else
-            period = $"{StartsOn?.ToString("dd/MM/yyyy")} até {EndsOn?.ToString("dd/MM/yyyy")}";
+            period = $"*{StartsOn?.ToString("dd/MM/yyyy")} até {EndsOn?.ToString("dd/MM/yyyy")}*";
 
-        var messageFullfield = MESSAGETEMPLATE.
+        var messageFullfield = MESSAGEHEADER.
             Replace("@EVENTNAME", EventName).
             Replace("@DATE", period);
+
+        messageFullfield += SOONINFO.Replace("@PREEVENTNAME", EventName.Replace(" ", "-"));
 
         return messageFullfield;
     }
 
-    private static string MESSAGETEMPLATE = "*@EVENTNAME*\r\n"+
-                                            "esta entre nós !!!\r\n\r\n"+
-                                            "Data: *@DATE*.\r\n\r\n" +
-                                            "Mais informações em breve, "+
-                                            "mas enquanto isso vc pode ir"+
-                                            " depositando seu dinheiro no link a baixo \r\n"+
-                                            "@LINK";         
+    private static string MESSAGEHEADER = "🚨🚨 *@EVENTNAME* 🚨🚨\r\n" +
+                                            "esta entre nós !!!\r\n\r\n" +
+                                            "Data: @DATE.\r\n\r\n";
+
+    private static string SOONINFO = "vc já pode ir depositando seu dinheiro usando o comando:\r\n" +
+                                     "!pix @PREEVENTNAME {valor}\r\n " +
+                                     "ou no link abaixo:\r\n" +
+                                     "@LINK";
 }
