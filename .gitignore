@@ -10,8 +10,7 @@
 *.userosscache
 *.sln.docstates
 
-appsettings.Development.json
-appsettings.json
+/src/FarmBank.Api/appsettings.json
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
@@ -416,3 +415,4 @@ src/backend/farmbank-api/appsettings.Development.json
 
 # Built Visual Studio Code Extensions
 *.vsix
+
