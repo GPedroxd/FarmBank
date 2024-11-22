@@ -17,7 +17,7 @@ public sealed class WppCommandHandlerFactory
         TextInfo info = CultureInfo.CurrentCulture.TextInfo;
         command = info.ToTitleCase(command).Replace(" ",string.Empty);
 
-        var commandClassName = $"FarmBank.Application.WppCommands.Commands.{command}WppCommandHandler";
+        var commandClassName = $"FarmBank.Application.WppCommands.Commands.{command}.{command}WppCommandHandler";
 
         var ClassCommandType = Type.GetType(commandClassName);
 
