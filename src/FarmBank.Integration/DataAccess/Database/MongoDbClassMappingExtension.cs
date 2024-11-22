@@ -51,7 +51,7 @@ public static class MongoDbClassMappingExtension
 
         var iConfig = services.BuildServiceProvider().GetRequiredService<IConfiguration>();
 
-        services.AddScoped(
+        services.AddSingleton(
             _ => new MongoContext(iConfig["MongoDbConnectionString"], iConfig["DatabaseName"])
         );
 

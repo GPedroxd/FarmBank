@@ -3,7 +3,7 @@ using FarmBank.Application.Communication.Handlers.EventCreated;
 using FarmBank.Core.Event;
 using Microsoft.Extensions.Logging;
 
-namespace FarmBank.Application.WppCommands.Commands;
+namespace FarmBank.Application.WppCommands.Commands.CreatEvent;
 
 public class CreateEventWppCommandHandler : IWppCommand
 {
@@ -19,7 +19,7 @@ public class CreateEventWppCommandHandler : IWppCommand
     public async Task ProcessAsync(WppInputMessage inputMessage, string[] args)
     {
         var eventName = args[0].Trim().Replace("-", " ");
-        
+
         DateTime? startDate = null;
         DateTime? endDate = null;
 

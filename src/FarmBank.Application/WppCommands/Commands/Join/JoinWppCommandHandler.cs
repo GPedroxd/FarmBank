@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 
-namespace FarmBank.Application.WppCommands.Commands;
+namespace FarmBank.Application.WppCommands.Commands.Join;
 
 public class JoinWppCommandHandler : IWppCommand
 {

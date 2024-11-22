@@ -1,5 +1,4 @@
 ﻿using FarmBank.Application.Base;
-using FarmBank.Application.Transaction.BackgroundJobs;
 using FarmBank.Application.Transaction.Commands.NewPayment;
 using FarmBank.Application.WppCommands;
 using Microsoft.Extensions.DependencyInjection;
