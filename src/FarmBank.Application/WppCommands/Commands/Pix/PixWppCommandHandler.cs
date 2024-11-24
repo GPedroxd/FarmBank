@@ -24,10 +24,10 @@ public class PixWppCommandHandler : IWppCommand
     public async Task ProcessAsync(WppInputMessage inputMessage, string[] args)
     {
         var senderPhone = inputMessage.SenderId.Split(":")[0];
-        var memberPhone = senderPhone.Skip(2).ToString();
+        var memberPhone = string.Join("",senderPhone.Skip(2));
         var amount = decimal.Parse(args[0]);
 
-        var activeEvents = (await _eventRepository.GetActivetedEventAsync(CancellationToken.None)).OrderByDescending(evnt => evnt.CreatedAt);
+        var activeEvents = (await _eventRepository.GetActivetedEventAsync(CancellationToken.None)).OrderByDescending(evnt => evnt.CreatedAt).ToList();
 
         Core.Event.Event @event;
 
@@ -48,7 +48,7 @@ public class PixWppCommandHandler : IWppCommand
             Email = "vinibr242@hotmail.com",
             EventId = @event.Id,
             PaymentMethod = "pix",
-            PhoneNumber = senderPhone,
+            PhoneNumber = memberPhone,
         };
 
         var result = await _mediator.Send(command);

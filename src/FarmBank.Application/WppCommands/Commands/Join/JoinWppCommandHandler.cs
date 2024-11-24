@@ -22,7 +22,7 @@ public class JoinWppCommandHandler : IWppCommand
         var senderName = inputMessage.SenderName;
         var senderPhone = inputMessage.SenderId.Split(":")[0];
 
-        var phoneStandar = senderPhone.Skip(2).ToString() ?? throw new ArgumentException("not able to get phone number");
+        var phoneStandar = string.Join("", senderPhone.Skip(2)) ?? throw new ArgumentException("not able to get phone number");
 
         var currentMember = await _memberRepository.GetByPhoneNumberAsync(phoneStandar, CancellationToken.None);
 

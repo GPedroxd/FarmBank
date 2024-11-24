@@ -21,7 +21,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddMongoDbRepositories();
 
 builder.Services.AddApplicationDependencies();
-builder.Services.AddScoped<IPaymentGatewayService, MercadoPagoPaymentGateway>();
+builder.Services.AddTransient<IPaymentGatewayService, MercadoPagoPaymentGateway>();
 builder.Services.AddTransient<ICommunicationService, WppService>();
 
 var wppConfig = new WppConfigs(
