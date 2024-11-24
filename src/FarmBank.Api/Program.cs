@@ -1,16 +1,15 @@
-using FarmBank.Api.BackgroundService;
-using FarmBank.Application.Commands.NewPayment;
-using FarmBank.Application.Dto;
-using FarmBank.Application.Interfaces;
-using FarmBank.Integration;
-using FarmBank.Integration.Database;
-using FarmBank.Integration.Interfaces;
-using FarmBank.Integration.Repository;
-using MongoDB.Bson.Serialization;
-using MongoDB.Bson.Serialization.Serializers;
+using FarmBank.Application;
+using FarmBank.Application.Communication;
+using FarmBank.Application.Payment;
+using FarmBank.Integration.Communication;
+using FarmBank.Integration.DataAccess.Database;
+using FarmBank.Integration.PaymentGateway;
 using Polly;
 using Polly.Extensions.Http;
 using Refit;
+using System.Net.Http;
+
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,28 +18,28 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-BsonSerializer.RegisterSerializer(new GuidSerializer(MongoDB.Bson.BsonType.String));
+builder.Services.AddMongoDbRepositories();
 
-builder.Services.AddBackgroundService();
-builder.Services.AddScoped(
-    _ => new MongoContext(builder.Configuration["MongoDbConnectionString"], "FarmBank")
-);
-builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
-builder.Services.AddScoped<IMemberRepository, MemberRepository>();
-builder.Services.AddMediatR(
-    conf => conf.RegisterServicesFromAssemblyContaining<NewPaymentCommand>()
-);
-builder.Services.AddScoped<ITransactionService, TransactionService>();
-builder.Services.AddScoped<IWppService, WppService>();
+builder.Services.AddApplicationDependencies();
+builder.Services.AddTransient<IPaymentGatewayService, MercadoPagoPaymentGateway>();
+builder.Services.AddTransient<ICommunicationService, WppService>();
 
-var wppConfig = new GeneralConfigs(
+var wppConfig = new WppConfigs(
     builder.Configuration["WppGroupId"],
     builder.Configuration["WppBotInstanceKey"],
-    builder.Configuration["FrontEndUrl"]
+    builder.Configuration["FrontEndUrl"],
+    builder.Configuration["WppUsername"],
+    builder.Configuration["WppPassword"]
 );
+
 builder.Services.AddSingleton(wppConfig);
 
-builder
+var cred = Convert.
+            ToBase64String(
+            Encoding.UTF8
+                    .GetBytes($"{wppConfig.UserName}:{wppConfig.Password}"));
+
+ builder
     .Services.AddRefitClient<IMercadoPagoApi>(
         new()
         {
@@ -60,7 +59,11 @@ var retryPolicy = HttpPolicyExtensions
     .WaitAndRetryAsync(3, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)));
 
 builder
-    .Services.AddRefitClient<IWppApi>()
+    .Services.AddRefitClient<IWppApi>(new()
+    {
+        AuthorizationHeaderValueGetter = (msg, ct_) => 
+        Task.FromResult(cred)
+    })
     .ConfigureHttpClient(c =>
     {
         c.BaseAddress = new Uri(builder.Configuration["WppApiUrl"] ?? "localhost:3333");
@@ -84,7 +87,7 @@ app.UseHttpsRedirection();
 app.UseCors(c =>
 {
     c.AllowAnyHeader();
-    c.WithMethods("POST");
+    c.WithMethods("*");
     c.AllowAnyOrigin();
 });
 

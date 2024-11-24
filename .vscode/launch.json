@@ -13,7 +13,7 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/src/FarmBank.Api/bin/Debug/net7.0/FarmBank.Api.dll",
+            "program": "${workspaceFolder}/src/FarmBank.Api/bin/Debug/net8.0/FarmBank.Api.dll",
             "args": [],
             "cwd": "${workspaceFolder}/src/FarmBank.Api",
             "stopAtEntry": false,

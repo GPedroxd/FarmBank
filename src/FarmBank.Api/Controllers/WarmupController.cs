@@ -1,5 +1,5 @@
-using FarmBank.Application.Models;
-using FarmBank.Integration.Interfaces;
+using FarmBank.Application.Member;
+using FarmBank.Integration.Communication;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -20,11 +20,15 @@ public class WarmupController : ControllerBase
     /// Warmuping endpoint
     /// </summary>
     /// <returns></returns>
-    [SwaggerResponse(200, Type = typeof(Member))]
+    [SwaggerResponse(200)]
     [HttpGet]
     public async Task<IResult> WarmupAsync()
     {
-        await _wppApi.StatusAsync();
+        try
+        {
+            await _wppApi.StatusAsync();
+        }
+        catch (Exception) { }
         return TypedResults.Ok();
     }
 
