@@ -1,4 +1,5 @@
 ﻿using FarmBank.Application.Base;
+using FarmBank.Application.Communication;
 using Microsoft.Extensions.Logging;
 using System.Text.RegularExpressions;
 
@@ -8,11 +9,13 @@ public class WppInputMessageHandler : ICommandHandler<WppInputMessage>
 {
     private readonly ILogger<WppInputMessageHandler> _logger;
     private readonly WppCommandHandlerFactory _commandHandlerFactory;
+    private readonly ICommunicationService _communicationService;
 
-    public WppInputMessageHandler(ILogger<WppInputMessageHandler> logger, WppCommandHandlerFactory handlerFactory)
+    public WppInputMessageHandler(ILogger<WppInputMessageHandler> logger, WppCommandHandlerFactory handlerFactory, ICommunicationService communicationService)
     {
         _logger = logger;
         _commandHandlerFactory = handlerFactory;
+        _communicationService = communicationService;
     }
 
     public async Task Handle(WppInputMessage request, CancellationToken cancellationToken)
@@ -35,6 +38,7 @@ public class WppInputMessageHandler : ICommandHandler<WppInputMessage>
         catch (Exception ex) 
         {
             _logger.LogError(ex, "An Error Occured while tried to perform command {command} at {date}. Ex.: {ex}", command, DateTime.Now, ex.Message);
+            await _communicationService.SendMessagemAsync(new ErrorDefaultMessage(), request.Message.Id);
         }  
     }
 

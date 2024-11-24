@@ -28,10 +28,10 @@ public record NewEventCreatedMessage : ICommunicationMessage
 
     private static string MESSAGEHEADER = "🚨🚨 *@EVENTNAME* 🚨🚨\r\n" +
                                             "esta entre nós !!!\r\n\r\n" +
-                                            "Data: @DATE.\r\n\r\n";
+                                            "Data: @DATE\r\n\r\n";
 
     private static string SOONINFO = "vc já pode ir depositando seu dinheiro usando o comando:\r\n" +
-                                     "!pix @PREEVENTNAME {valor}\r\n " +
+                                     "!pix {valor}\r\n \r\n" +
                                      "ou no link abaixo:\r\n" +
                                      "@LINK";
 }
