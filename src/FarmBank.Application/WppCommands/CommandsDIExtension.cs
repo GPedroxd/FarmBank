@@ -1,4 +1,4 @@
-﻿using FarmBank.Application.WppCommands.Commands.CreatEvent;
+﻿using FarmBank.Application.WppCommands.Commands.CreateEvent;
 using FarmBank.Application.WppCommands.Commands.Join;
 using FarmBank.Application.WppCommands.Commands.Pix;
 using FarmBank.Application.WppCommands.Commands.Rank;

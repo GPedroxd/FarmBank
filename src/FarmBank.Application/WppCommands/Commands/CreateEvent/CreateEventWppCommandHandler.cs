@@ -4,7 +4,7 @@ using FarmBank.Application.Communication.Handlers.EventCreated;
 using FarmBank.Core.Event;
 using Microsoft.Extensions.Logging;
 
-namespace FarmBank.Application.WppCommands.Commands.CreatEvent;
+namespace FarmBank.Application.WppCommands.Commands.CreateEvent;
 
 public class CreateEventWppCommandHandler : IWppCommand
 {

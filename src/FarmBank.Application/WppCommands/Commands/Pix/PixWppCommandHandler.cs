@@ -55,7 +55,9 @@ public class PixWppCommandHandler : IWppCommand
 
         if(result.IsValid is not true)
         {
-            await _communicationService.SendMessagemAsync(new PixReplyMessage(amount, string.Join("\r\n", result.Erros), true), inputMessage.Message.Id);
+            await _communicationService.SendMessagemAsync(new PixReplyMessage(amount, 
+                "Não te achamos aqui, não. \r\n Dá !join ai pra eu ver uma coisa",
+                true), inputMessage.Message.Id);
             return;
         }
 
